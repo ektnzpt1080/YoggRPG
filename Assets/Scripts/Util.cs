@@ -25,6 +25,14 @@ public class Stage
         return result;
     }
 
+    public List<Vector2> EnemyTile(){
+        List<Vector2> result = new List<Vector2>();
+        foreach (Enemy enemy in enemies){
+            result.Add(enemy.position);
+        }
+        return result;
+    }
+
 }
 
 public class PRS
