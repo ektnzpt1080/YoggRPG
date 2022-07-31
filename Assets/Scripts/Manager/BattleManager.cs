@@ -18,7 +18,9 @@ public class BattleManager : MonoBehaviour
         pickCardState,
         playCardState,
         EndTurnState,
-        EnemyTurnState,
+        EnemyAttackState,
+        
+        EnemyMoveState,
     }
 
     bool isBattle;//battle이 시작되었는지
@@ -42,9 +44,10 @@ public class BattleManager : MonoBehaviour
     void Update(){
         if(isBattle){
             switch (state){
-                //Battle이 시작하는 state
+                //Battle이 시작하는 state, 바로 MoveState로 간다
                 case State.startBattleState :
-                    state = State.drawCardState;
+                    StartCoroutine(_EnemyMoveStart(stage));
+                    state = State.EnemyMoveState;
                     break;
                 //드로우 하는 state
                 case State.drawCardState :
@@ -71,8 +74,11 @@ public class BattleManager : MonoBehaviour
                 //턴 종료
                 case State.EndTurnState :
                     break;
-                //상대 턴 상태, 모든 적의 행동이 끝나면 다시 내턴이 됨
-                case State.EnemyTurnState :
+                //상대 턴 공격 상태, 지정된 범위를 공격함
+                case State.EnemyAttackState :
+                    break;
+                //상대 턴 이동 상태, 적절한 곳으로 이동하고, 공격을 예고함
+                case State.EnemyMoveState :
                     break;
                 default :
                     break;
@@ -103,8 +109,8 @@ public class BattleManager : MonoBehaviour
     public void EndPlayerTurn(){
         if(Input.GetKeyDown(KeyCode.Z)){
             turn = Turn.enemy;
-            state = State.EnemyTurnState;
-            StartCoroutine(_EnemyTurnStart(stage));
+            state = State.EnemyAttackState;
+            StartCoroutine(_EnemyAttackStart(stage));
         }
     }
     public void EndEnemyTurn(){
@@ -118,16 +124,31 @@ public class BattleManager : MonoBehaviour
     public void EndStageEnemyDead(){
         Debug.Log("Enemy All Dead");
     }
-    private IEnumerator _EnemyTurnStart(Stage stage){
+    
+    private IEnumerator _EnemyAttackStart(Stage stage){
         foreach(Enemy enemy in stage.enemies){
             enemyActing = true;
-            enemy.Behaviour(stage);
+            enemy.Attack(stage);
+            while(enemyActing){
+                yield return null;
+            }
+        }
+        state = State.EnemyAttackState;
+        StartCoroutine(_EnemyMoveStart(stage));
+    }
+    
+    private IEnumerator _EnemyMoveStart(Stage stage){
+        foreach(Enemy enemy in stage.enemies){
+            enemyActing = true;
+            enemy.Move(stage);
             while(enemyActing){
                 yield return null;
             }
         }
         EndEnemyTurn();
+        state = State.drawCardState;
     }
+
     public void EndEnemyAct(){
         enemyActing = false;
     }

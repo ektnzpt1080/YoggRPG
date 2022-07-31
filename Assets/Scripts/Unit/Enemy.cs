@@ -7,6 +7,7 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] public int health;
     [SerializeField] public Vector2 position;
+    [SerializeField] public List<Vector2> attackRange;
 
     public void GetDamage( int damage ){
         health -= damage;
@@ -17,6 +18,9 @@ public abstract class Enemy : MonoBehaviour
         }
         else Debug.Log("enemy get damage");
     }
-    public abstract void Behaviour(Stage stage);
+
+    public abstract void Move(Stage stage);
+    public abstract void Attack(Stage stage);
+
 
 }
