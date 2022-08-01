@@ -11,7 +11,6 @@ public class Poke : Spell
         List<Vector2> tilePositions = new List<Vector2>();
         foreach(Vector2 v in range){
             if(Gridlib.InRange(stage, stage.player.position + v)){
-                stage.tiles[stage.player.position + v].Highlight();
                 foreach (Enemy e in stage.enemies){
                     if(e.position == stage.player.position + v){
                         tilePositions.Add(stage.player.position + v);

@@ -154,9 +154,17 @@ public class CardManager : MonoBehaviour
 
     //고른 카드를 selectedCard에 넣고, 핸드에 있는 카드들을 밑으로 내림
     public void SelectCard(Card card){
+        PreDecisionRange = card.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
+        if(PreDecisionRange == null){
+            //즉발로 사용되는 종류임, 즉시 쓰게 만들것
+        }
+        else if(PreDecisionRange.Count == 0){
+            Debug.Log("No appropriate target on board");
+            return;
+        }
+        GameManager.Instance.BattleManager.EmphasizeTile(true, PreDecisionRange);
         selectedCard = card;
         selected = true;
-        PreDecisionRange = card.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
         Vector3 down = Vector3.down * 1.7f;
         card.MoveTransform(new PRS(card.transform.position + down , Quaternion.identity, card.transform.localScale), true, 0.4f);
         float left = 0.7f;
@@ -193,21 +201,21 @@ public class CardManager : MonoBehaviour
             //적절한 타일을 고름
             if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
                 selectedCard.spell.Decision(tile.position);
-                selected = false;
-                GameManager.Instance.BattleManager.Select(selected);
                 DiscardCard(selectedCard);
             }
             //적절하지 않은 타일을 고름 
             else{
                 CardReturnPRS(selectedCard);
-                selected = false;    
-                GameManager.Instance.BattleManager.Select(selected);
             }
+            selected = false;    
+            GameManager.Instance.BattleManager.Select(selected);
+            GameManager.Instance.BattleManager.EmphasizeTile(false);
         }
         else if((Input.GetMouseButtonDown(1)) && selected){
             CardReturnPRS(selectedCard);
             selected = false;
             GameManager.Instance.BattleManager.Select(selected);
+            GameManager.Instance.BattleManager.EmphasizeTile(false);
         }
     }
 
@@ -228,6 +236,8 @@ public class CardManager : MonoBehaviour
         }
     }
 
+
+
     void Update(){ 
         //디버그 용도
         if(Input.GetKeyDown(KeyCode.Alpha1)){
@@ -236,6 +246,5 @@ public class CardManager : MonoBehaviour
         
     }
 
-    
 
 }

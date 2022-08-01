@@ -201,4 +201,17 @@ public class BattleManager : MonoBehaviour
             state = State.selectBehaviourState;
         }
     }
+
+    public void EmphasizeTile( bool active, List<Vector2> tilePositions = null){
+        if(tilePositions == null){
+            foreach (Tile t in stage.tiles.Values) {
+                t.targetTile(active);
+            }
+        }
+        else{
+            foreach (Vector2 v in tilePositions) {
+                stage.tiles[v].targetTile(active);
+            }
+        }
+    }
 }
