@@ -9,4 +9,10 @@ public class Player : MonoBehaviour
     public void GetDamage(int d){
         Debug.Log("Player Get Damaged");
     }
+
+    public void Move(Tile tile){
+        position = tile.position;
+        transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y, transform.position.z);
+    }
+
 }
