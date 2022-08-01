@@ -36,10 +36,19 @@ public class CardManager : MonoBehaviour
 
     public void DrawCard(){
         if(cardDeck.Count == 0){
-            Debug.Log("deck count 0, need to shuffle cards");
+            if(cardGrave.Count == 0){
+                Debug.Log("Cannot draw card");
+                return;
+            }
+            Debug.Log("shuffle deckgrave cards");
+            ShuffleCard();//coroutine으로 만들어야 될수도 있음
         }
-        else {
-            int index = cardHand.Count;
+        if(cardHand.Count >= maxCardCount){
+            Debug.Log("Hand is full");
+            cardGrave.Add(cardDeck[0]);
+            cardDeck.RemoveAt(0);
+        }
+        else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
             drawCard.Copy(cardDeck[0]);
             cardHand.Add(drawCard);
@@ -48,7 +57,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    //카드를 정렬시킴 
+    //카드를 정렬시킴 r은 원의 반지름, moveTime은 움직이는 시간
     public void CardHandAlliance(float r = 22.97f, float moveTime = 0.7f){
         float[] cardHandx = new float[cardHand.Count];
         float xPos(float s) {
@@ -184,9 +193,9 @@ public class CardManager : MonoBehaviour
             //적절한 타일을 고름
             if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
                 selectedCard.spell.Decision(tile.position);
-                CardReturnPRS(selectedCard);
                 selected = false;
                 GameManager.Instance.BattleManager.Select(selected);
+                DiscardCard(selectedCard);
             }
             //적절하지 않은 타일을 고름 
             else{
@@ -202,6 +211,22 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    void DiscardCard(Card card){
+        //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
+        cardHand.Remove(card);
+        cardGrave.Add(card.spell);
+        GameObject.Destroy(card.gameObject);
+        CardHandAlliance();
+    }
+
+    void ShuffleCard(){
+        int count = cardGrave.Count;
+        for(int i = 0; i < count; i++){
+            int j = Random.Range(0, cardGrave.Count);
+            cardDeck.Add(cardGrave[j]);
+            cardGrave.RemoveAt(j);
+        }
+    }
 
     void Update(){ 
         //디버그 용도
