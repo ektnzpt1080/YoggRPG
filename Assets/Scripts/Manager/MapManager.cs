@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour
     public Camera camera_;
 
     [SerializeField] Map mapobject;
+    [SerializeField] Location locationobject;
     [SerializeField] Transform starttransform;
     [SerializeField] Transform endtransform;
 
@@ -18,40 +19,58 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI text;
     
-    List<Pos> mapPos = new List<Pos>();
+    List<Pos> mapPos;
     
     int randomValue;
-    
+
+
     public class Pos
     {
         public int x;
         public int y;
+        public string name;
     }
 
-    // Start is called before the first frame update
+
     void Awake()
     {
-        Vector3 startPos = starttransform.position;
-        Vector3 endPos = endtransform.position;
-
+        
         DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
 
         Instance = this;
 
-        CreateMap(startPos, "Start", startColor);
+        if (MapSaver.mapPos.Count == 0)
+        {
+            MakeNewMap();
+        }
+        else
+        {
+            MakeMapbymapPos(MapSaver.mapPos);
+        }
+
+        SpawnLocation();
+    }
+
+    public void MakeNewMap()
+    {
+        mapPos = new List<Pos>();
+        
         Pos startpos = new Pos();
         startpos.x = 0;
         startpos.y = 3;
+        startpos.name = "Start";
+        DrawMap(startpos, startpos.name, startColor);
         mapPos.Add(startpos);
-        CreateMap(endPos, "Boss", bossColor);
+        
         Pos endpos = new Pos();
         endpos.x = 6;
         endpos.y = 3;
-        mapPos.Add(startpos);
+        endpos.name = "Boss";
+        DrawMap(endpos, endpos.name, bossColor);
         mapPos.Add(endpos);
 
         // 5:1 / 4:2 / 3:3 / 2:4 / 1:5
-        for (int i = 1; i<=5; i++)
+        for (int i = 1; i <= 5; i++)
         {
             // 현재 위치들 지정
             List<int> currentPos = new List<int>();
@@ -60,10 +79,9 @@ public class MapManager : MonoBehaviour
                 if (mapPos[j].x == i - 1)
                 {
                     currentPos.Add(mapPos[j].y);
-                    print(i - 1 +" "+ mapPos[j].y);
                 }
             }
-            
+
             //다음 위치들 지정
             List<int> newPos;
             while (true)
@@ -110,7 +128,7 @@ public class MapManager : MonoBehaviour
                 int c = 0;
                 foreach (int p in currentPos)
                 {
-                    if(newPos.Contains(p - 1) || newPos.Contains(p) || newPos.Contains(p + 1))
+                    if (newPos.Contains(p - 1) || newPos.Contains(p) || newPos.Contains(p + 1))
                     {
                         c += 1;
                     }
@@ -123,17 +141,10 @@ public class MapManager : MonoBehaviour
                         d += 1;
                     }
                 }
-                if(c==currentPos.Count && d == newPos.Count)
+                if (c == currentPos.Count && d == newPos.Count)
                 {
-                    foreach (int p in newPos)
-                    {
-                        Pos pos = new Pos();
-                        pos.x = i;
-                        pos.y = p;
-                        mapPos.Add(pos);
-                    }
                     break;
-                }         
+                }
             }
 
             foreach (int k in newPos)
@@ -141,31 +152,76 @@ public class MapManager : MonoBehaviour
                 Pos p = new Pos();
                 p.x = i;
                 p.y = k;
-                mapPos.Add(p);
-                float y = (float)(1.8 * k - 5.4);
                 if (i != 5)
                 {
                     if (UnityEngine.Random.Range(1, 11) <= 8)
                     {
-                        CreateMap((startPos * (6-i) + endPos * i) / 6 + new Vector3(0, y, 0), "Stage", stageColor);
+                        DrawMap(p, "Stage", stageColor);
+                        p.name = "Stage";
                     }
                     else
                     {
-                        CreateMap((startPos * (6 - i) + endPos * i) / 6 + new Vector3(0, y, 0), "Event", eventColor);
+                        DrawMap(p, "Event", eventColor);
+                        p.name = "Event";
                     }
                 }
                 else
                 {
-                    CreateMap((startPos * (6 - i) + endPos * i) / 6 + new Vector3(0, y, 0), "Rest", restColor);
+                    DrawMap(p, "Rest", restColor);
+                    p.name = "Rest";
                 }
-                
+                mapPos.Add(p);
             }
         }
-
-
         // 위아래 1.8 기본
 
+        MapSaver.mapPos = mapPos;
+        Pos pos = new Pos();
+        pos.x = 0;
+        pos.y = 3;
+        pos.name = "현재 위치";
+        MapSaver.currentLevel = pos;
+    }
 
+    public void MakeMapbymapPos(List<Pos> mapPos)
+    {
+        foreach (Pos pos in mapPos)
+        {
+            if(pos.name == "Start")
+            {
+                DrawMap(pos, pos.name, startColor);
+            }
+            else if (pos.name == "Boss")
+            {
+                DrawMap(pos, pos.name, bossColor);
+            }
+            else if (pos.name == "Stage")
+            {
+                DrawMap(pos, pos.name, stageColor);
+            }
+            else if (pos.name == "Event")
+            {
+                DrawMap(pos, pos.name, eventColor);
+            }
+            else
+            {
+                DrawMap(pos, pos.name, restColor);
+            }
+        }
+        MapSaver.mapPos = mapPos;
+    }
+
+    public void SpawnLocation()
+    {
+        Pos level = MapSaver.currentLevel;
+        Location loc = GameObject.Instantiate(locationobject, new Vector2((float)(2.4 * level.x - 7.2), (float)(1.8 * level.y - 5.4)), Quaternion.identity);
+    }
+    public void DrawMap(Pos pos, string name, Color color)
+    {
+        Vector3 vector = new Vector3((float)(pos.x * 2.4 - 7.2), (float)(pos.y * 1.8 - 5.4), 0);
+        Map newmap = GameObject.Instantiate(mapobject, vector, Quaternion.identity);
+        newmap.Init(name, color);
+        newmap.pos = pos;
     }
 
     private float Width
@@ -184,11 +240,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void CreateMap(Vector3 vector, string name, Color color)
-    {
-        Map newmap = GameObject.Instantiate(mapobject, vector, Quaternion.identity);
-        newmap.Init(name, color);
-    }
+    
 
     public void ShowText(Map map)
     {
