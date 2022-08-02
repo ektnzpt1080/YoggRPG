@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Gridlib
 {
+    static List<Vector2> way4 = new List<Vector2> {Vector2.right, Vector2.left, Vector2.up, Vector2.down};
+    static List<Vector2> way8 = new List<Vector2> {Vector2.right, Vector2.left, Vector2.up, Vector2.down,
+        Vector2.right + Vector2.up, Vector2.right + Vector2.down, Vector2.left + Vector2.up, Vector2.left + Vector2.down};
+
+
     /// <summary>
     /// 두 점 p1, p2가 인접해있다면 true, 아니면 false를 반환 
     /// </summary>
@@ -80,18 +85,7 @@ public class Gridlib
     /// position의 1서클 주변 좌표들을 List<Vector2>의 형태로 반환
     /// </summary>
     public static List<Vector2> Circle(Vector2 position){
-        List<Vector2> points = new List<Vector2>();
-        float x = position.x;
-        float y = position.y;
-        points.Add(new Vector2(x-1, y+1));
-        points.Add(new Vector2(x, y+1));
-        points.Add(new Vector2(x+1, y+1));
-        points.Add(new Vector2(x-1, y));
-        points.Add(new Vector2(x+1, y));
-        points.Add(new Vector2(x-1, y-1));
-        points.Add(new Vector2(x, y-1));
-        points.Add(new Vector2(x+1, y-1));
-        return points;
+        return WayStraight(position, true, 1);
     }
 
     /// <summary>
@@ -101,7 +95,6 @@ public class Gridlib
     public static List<Vector2> CanReach(Stage stage, Vector2 position, int movement){
         List<Vector2> result = new List<Vector2>();
         List<Vector2> lastVisitedPoints = new List<Vector2> {position};
-        List<Vector2> way4 = new List<Vector2> {Vector2.right, Vector2.left, Vector2.up, Vector2.down};
         for(int i = 0 ; i < movement ; i++){
             List<Vector2> temp = new List<Vector2>();
             foreach(Vector2 point in lastVisitedPoints){
@@ -137,5 +130,35 @@ public class Gridlib
         return result;
     }
     
-    
+    /// <summary>
+    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>만큼 떨어진 위치들을 구함
+    /// <distance>가 -1일시 distance는 무한이 됨
+    /// </summary>
+    public static List<Vector2> WayStraight(Vector2 pos, bool is8way, int distance = -1, Stage stage = null){
+        List<Vector2> result = new List<Vector2>();
+        List<Vector2> way = is8way ? way8 : way4;
+        if( distance == -1 && stage != null){
+            bool inRange = true;
+            int i = 1;
+            while(inRange){
+                inRange = false;
+                foreach (Vector2 v in way){
+                    if(InRange(stage, pos + v * i)){
+                        result.Add(pos + v * i);
+                        inRange = true;
+                    }
+                }
+            }
+        }
+        else{
+            foreach(Vector2 v in way){
+                for(int i = 0; i < distance; i++) {
+                    result.Add(pos + v * distance);
+                }
+            }
+        }
+        
+        return result;
+    }
+
 }

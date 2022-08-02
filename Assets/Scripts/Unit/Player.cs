@@ -5,8 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] public Vector2 position { get; set;}
-
+    [SerializeField] public int health { get; set;}
+    [SerializeField] public int strenghth { get; set;}
+    [SerializeField] public int intelligence { get; set;}
+    
     public void GetDamage(int d){
+        
         Debug.Log("Player Get Damaged");
     }
 
