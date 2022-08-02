@@ -7,7 +7,11 @@ public class Slime : Enemy
     //두 칸 4방향으로 움직이고 공격
     //공격 후 턴이 종료됨
     void Awake(){
-        health = 2;
+        info = unitdata.Enemies[0];
+        health = info.health;
+        strength = info.strength;
+        //나중에 맵에 따라서 자동으로 성장하도록 만들 것
+        //애초에 여기서 하면 안 될 듯?
     }
 
     public override void Move(Stage stage){
@@ -64,7 +68,7 @@ public class Slime : Enemy
     }
 
     private IEnumerator _Attack(Stage stage){
-        int damage = 0; // 나중에 바꿀것
+        int damage = strength; // 나중에 바꿀것
         if(attackRange.Contains(stage.player.position)){
             stage.player.GetDamage(damage);
         }
