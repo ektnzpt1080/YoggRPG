@@ -97,6 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a07e167fd5b8b4419ad1d708daad0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitdata: {fileID: 11400000, guid: 209653f511dc1b6408447c93587f036f, type: 2}
+  info:
+    Name: 
+    sprite: {fileID: 0}
+    health: 0
+    strength: 0
   health: 0
+  strength: 0
   position: {x: 0, y: 0}
   attackRange: []

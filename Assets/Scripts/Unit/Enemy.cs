@@ -4,8 +4,10 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-
+    [SerializeField] public UnitData unitdata;
+    public EnemyInfo info;
     [SerializeField] public int health;
+    [SerializeField] public int strength;    
     [SerializeField] public Vector2 position;
     [SerializeField] public List<Vector2> attackRange;
 
