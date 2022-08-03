@@ -27,9 +27,9 @@ public class Slash : Spell
     }
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
-        foreach (Enemy e in stage.enemies){
-            if(e.position == selectedPos){
-                e.GetDamage(GetValue());//damage 나중에 바꿀것
+        for(int i = stage.enemies.Count - 1 ; i >= 0; i--){
+            if(stage.enemies[i].position == selectedPos){
+                stage.enemies[i].GetDamage(GetValue());//damage 나중에 바꿀것
             }
         }
     }
@@ -60,9 +60,9 @@ public class Poke : Spell
     }
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
-        foreach (Enemy e in stage.enemies){
-            if(e.position == selectedPos){
-                e.GetDamage(GetValue());
+        for(int i = stage.enemies.Count - 1 ; i >= 0 ; i--){
+            if(stage.enemies[i].position == selectedPos){
+                stage.enemies[i].GetDamage(GetValue());//damage 나중에 바꿀것
             }
         }
     }
@@ -82,9 +82,9 @@ public class RoundSlash : Spell
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         foreach (Vector2 v in Gridlib.Circle(stage, stage.player.position)){
-            foreach(Enemy e in stage.enemies){
-                if(e.position == v) {
-                    e.GetDamage(GetValue());
+            for(int i = stage.enemies.Count - 1 ; i >= 0; i--){
+                if(stage.enemies[i].position == v){
+                    stage.enemies[i].GetDamage(GetValue());//damage 나중에 바꿀것
                 }
             }
         }

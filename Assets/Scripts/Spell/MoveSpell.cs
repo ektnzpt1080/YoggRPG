@@ -35,7 +35,7 @@ public class RunRunRun : Spell
         List<Vector2> candidate = Gridlib.WayStraight(stage, stage.player.position, true, 3);
         foreach(Vector2 c in candidate){
             if(!stage.AssignedTile().Contains(c)){
-                result.Add(c);
+                result.Add(c);//바꿔야됨, enemy에 막히도록
             }
         }
         return result;
