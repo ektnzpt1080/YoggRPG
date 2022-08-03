@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public CardManager CardManager { get; private set; }
     List<Spell> cl = new List<Spell>();
     public int clLength;
-    private void Awake() 
+    private void Awake()
     {
         if (Instance != null && Instance != this) {
             Destroy(this);
@@ -27,13 +27,24 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
-        for(int i = 0 ; i < clLength ; i++){
-            cl.Add(new Poke());
-        }
+        
+        cl.Add(new Poke());
+        cl.Add(new Poke());
+        cl.Add(new Step());
+        cl.Add(new Step());
+        cl.Add(new RunRunRun());
+        cl.Add(new Slash());
+        cl.Add(new Slash());
+        cl.Add(new RoundSlash());
+        cl.Add(new ShieldUp());
+        cl.Add(new ShieldUp());
+        cl.Add(new WoodShield());
+
         CardManager.SetCardList(cl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
         BattleManager.StartBattle(stage_ex);
     }
 
+    
 
 }

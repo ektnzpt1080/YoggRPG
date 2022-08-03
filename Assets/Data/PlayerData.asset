@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1171c1a7af5bf8479bcf8deda72f1da, type: 3}
-  m_Name: UnitData
+  m_Script: {fileID: 11500000, guid: 061727082787cbe438ae5b733813a175, type: 3}
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
-  playerHP: 80
-  playerStrength: 20
-  playerIntelligence: 10
-  playerMana: 3
-  Enemies:
-  - Name: Slime
-    sprite: {fileID: 0}
-    health: 30
-    strength: 9
+  sprite: {fileID: 0}
+  health: 80
+  strength: 20
+  intelligence: 10

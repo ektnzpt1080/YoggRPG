@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Enemy enemy;
     Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
-    
+    [SerializeField] private EnemyData enemydata;
 
     public Stage GenerateStage(int w, int h, int e){
         //나중에 enemy를 List로 받아서 만들게 할것

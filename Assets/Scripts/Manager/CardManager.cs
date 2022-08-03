@@ -12,6 +12,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform rightCardTransform;
     [SerializeField] Transform leftCardTransform;
     [SerializeField] Transform deckTransform;
+    [SerializeField] SpellData spelldata;
 
     int maxCardCount = 10; // 최대 10장을 들 수 있음
     [SerializeField] bool selected;
@@ -51,6 +52,7 @@ public class CardManager : MonoBehaviour
         else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
             drawCard.Copy(cardDeck[0]);
+            drawCard.CardInit();
             cardHand.Add(drawCard);
             cardDeck.RemoveAt(0);
             CardHandAlliance();
@@ -156,7 +158,7 @@ public class CardManager : MonoBehaviour
     public void SelectCard(Card card){
         PreDecisionRange = card.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
         if(PreDecisionRange == null){
-            //즉발로 사용되는 종류임, 즉시 쓰게 만들것
+            card.spell.Decision(Vector2.zero);
         }
         else if(PreDecisionRange.Count == 0){
             Debug.Log("No appropriate target on board");
@@ -232,8 +234,13 @@ public class CardManager : MonoBehaviour
         for(int i = 0; i < count; i++){
             int j = Random.Range(0, cardGrave.Count);
             cardDeck.Add(cardGrave[j]);
-            cardGrave.RemoveAt(j);
+            cardGrave.RemoveAt(j);    
         }
+        GameManager.Instance.BattleManager.InitializeMovementMana();
+    }
+
+    public SpellInfo getSpellInfo(int i){
+        return spelldata.FindSpell(i);
     }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] public UnitData unitdata;
+    [SerializeField] public EnemyData unitinfo;
     public EnemyInfo info;
     [SerializeField] public int health;
     [SerializeField] public int strength;    

@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f90a0e152d573544b2025c4943f2dd3, type: 3}
+  m_Name: SpellData
+  m_EditorClassIdentifier: 
+  spellinfo:
+  - name: Slash
+    identitynumber: 101
+    sprite: {fileID: 0}
+    text: deal <V> damage
+    cost: 1
+    basic: 0
+    strCoeff: 1.1
+    intCoeff: 0
+    healthCoeff: 0
+  - name: Poke
+    identitynumber: 102
+    sprite: {fileID: 0}
+    text: deal <V> damage 2-range
+    cost: 0
+    basic: 0
+    strCoeff: 0.8
+    intCoeff: 0
+    healthCoeff: 0
+  - name: RoundSlash
+    identitynumber: 103
+    sprite: {fileID: 0}
+    text: deal <V> damage 1-circle
+    cost: 2
+    basic: 0
+    strCoeff: 1
+    intCoeff: 0
+    healthCoeff: 0
+  - name: ShieldUp
+    identitynumber: 104
+    sprite: {fileID: 0}
+    text: gain <V> shield
+    cost: 1
+    basic: 7
+    strCoeff: 0
+    intCoeff: 0
+    healthCoeff: 0.1
+  - name: Step
+    identitynumber: 201
+    sprite: {fileID: 0}
+    text: move 1 tile 4-way
+    cost: 1
+    basic: 0
+    strCoeff: 0
+    intCoeff: 0
+    healthCoeff: 0
+  - name: RunRunRun
+    identitynumber: 202
+    sprite: {fileID: 0}
+    text: move 3 tile 8-way
+    cost: 2
+    basic: 0
+    strCoeff: 0
+    intCoeff: 0
+    healthCoeff: 0
+  - name: RunRunRun
+    identitynumber: 301
+    sprite: {fileID: 0}
+    text: move 3 tile 8-way
+    cost: 2
+    basic: 0
+    strCoeff: 0
+    intCoeff: 0
+    healthCoeff: 0
+  - name: WoodShield
+    identitynumber: 301
+    sprite: {fileID: 0}
+    text: gain <V> shield
+    cost: 1
+    basic: 8
+    strCoeff: 0
+    intCoeff: 1.5
+    healthCoeff: 0
