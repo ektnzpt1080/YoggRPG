@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Color clickedColor;
     [SerializeField] private Color nonclickedColor;
     
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
     [SerializeField] Button moveButton;
     [SerializeField] TextMeshProUGUI moveButtonText;
 
@@ -81,7 +81,9 @@ public class BattleManager : MonoBehaviour
             
 
             //Mana UI
-            text.text = "Mana : " + mana + "/3";
+            manatext.text = "Mana : " + mana + "/3";
+            hptext.text = "Health : " + stage.player.health + "/" + stage.player.maxHealth;
+            shieldtext.text = "Shield : " + stage.player.shield;
 
             moveButtonText.text = "Move\nneed " + movementmana +" mana";
             if(mana < movementmana) moveButton.interactable = false;
@@ -106,6 +108,7 @@ public class BattleManager : MonoBehaviour
     public void EndEnemyTurn(){
         state = State.drawCardState;
         mana = 3;
+        stage.player.shield = 0;
     }
     public void EndStagePlayerDead(){
         Debug.Log("Player dead");

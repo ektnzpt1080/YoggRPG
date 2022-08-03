@@ -19,7 +19,12 @@ public class Player : MonoBehaviour
             health -= d - shield;
             shield = 0;
         }
+
         Debug.Log("Player Get Damaged : -" + d);
+        if(health <= 0 ){
+            health = 0;
+            GameManager.Instance.BattleManager.EndStagePlayerDead();
+        }
     }
 
     public void Move(Tile tile){
@@ -29,6 +34,7 @@ public class Player : MonoBehaviour
 
     public void Initialize(PlayerData pd){
         maxHealth = pd.health;
+        health = pd.health;
         strength = pd.strength;
         intelligence = pd.intelligence;
         shield = 0;
