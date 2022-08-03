@@ -6,10 +6,6 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
-    enum Turn{
-        player,
-        enemy
-    }
 
     enum State{
         startBattleState,
@@ -27,9 +23,8 @@ public class BattleManager : MonoBehaviour
     bool isBattle;//battle이 시작되었는지
     bool enemyActing;//enmey가 행동중
     int mana; //마나
-    int movementmana;
+    int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
-    Turn turn;
     State state;
     Stage stage;
     [SerializeField] private Color clickedColor;
@@ -97,7 +92,6 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle(Stage s){
         isBattle = true;
-        turn = Turn.player;
         state = State.startBattleState;
         stage = s;
     }
@@ -106,13 +100,11 @@ public class BattleManager : MonoBehaviour
     }
     public void EndPlayerTurn(){
         if(Input.GetKeyDown(KeyCode.Z)){
-            turn = Turn.enemy;
             state = State.EnemyAttackState;
             StartCoroutine(_EnemyAttackStart(stage));
         }
     }
     public void EndEnemyTurn(){
-        turn = Turn.player;
         state = State.drawCardState;
         mana = 3;
     }
@@ -171,7 +163,7 @@ public class BattleManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);    
             if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile)){
-                if(Gridlib.CanReach(stage, stage.player.position, 2).Contains(tile.position)){
+                if(Gridlib.CanReach(stage, stage.player.position, 1).Contains(tile.position)){ // 이동속도로 바꿀수도 있음
                     stage.player.Move(tile);
                     mana -= movementmana;
                     movementmana++;
@@ -207,5 +199,9 @@ public class BattleManager : MonoBehaviour
                 stage.tiles[v].targetTile(active);
             }
         }
+    }
+
+    public void InitializeMovementMana(){
+        movementmana = 1;
     }
 }

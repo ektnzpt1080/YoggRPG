@@ -5,13 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] public Vector2 position { get; set;}
+    [SerializeField] public int maxHealth { get; set;}
     [SerializeField] public int health { get; set;}
     [SerializeField] public int strenghth { get; set;}
     [SerializeField] public int intelligence { get; set;}
-
+    [SerializeField] public int shield { get; set;}
     
     public void GetDamage(int d){
-        health -= d;
+        if(shield > d){
+            shield -= d;
+        }
+        else {
+            health -= d - shield;
+            shield = 0;
+        }
         Debug.Log("Player Get Damaged : -" + d);
     }
 

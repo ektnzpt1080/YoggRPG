@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+//나무장벽 301
+public class WoodShield : Spell
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    int shield;
+    public override List<Vector2> PreDecision(){
+        return null;
+    }
+    public override void Decision(Vector2 selectedPos){
+        Stage stage = GameManager.Instance.BattleManager.GetStage();        
+        stage.player.shield += shield;
+    }
+    public override SpellInfo GetSpellInfo(){
+        return GameManager.Instance.CardManager.getSpellInfo(301);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }
