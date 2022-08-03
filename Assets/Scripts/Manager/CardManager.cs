@@ -95,11 +95,13 @@ public class CardManager : MonoBehaviour
         }
         if(cardHand.Count <= 3){
             for(int i = 0; i < cardHand.Count; i++) {
+                Quaternion rotation = Quaternion.identity;
+                Vector3 targetPos = new Vector3(cardHandx[i], leftCardTransform.position.y, leftCardTransform.position.z);
                 cardHand[i].Ordering(i);
                 cardHand[i].originOrder = i;
-                Vector3 targetPos = new Vector3(cardHandx[i], leftCardTransform.position.y, leftCardTransform.position.z);
                 cardHand[i].gameObject.transform.DOMove(targetPos, moveTime);
-                cardHand[i].originPRS = new PRS(targetPos, cardHand[i].transform.rotation, cardObject.transform.localScale);
+                cardHand[i].gameObject.transform.DORotateQuaternion(rotation, moveTime);
+                cardHand[i].originPRS = new PRS(targetPos, rotation, cardObject.transform.localScale);
             }
         }
         else{
@@ -157,10 +159,7 @@ public class CardManager : MonoBehaviour
     //고른 카드를 selectedCard에 넣고, 핸드에 있는 카드들을 밑으로 내림
     public void SelectCard(Card card){
         PreDecisionRange = card.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
-        if(PreDecisionRange == null){
-            card.spell.Decision(Vector2.zero);
-        }
-        else if(PreDecisionRange.Count == 0){
+        if(PreDecisionRange != null && PreDecisionRange.Count == 0){
             Debug.Log("No appropriate target on board");
             return;
         }
@@ -200,8 +199,13 @@ public class CardManager : MonoBehaviour
         if((Input.GetMouseButtonDown(0)) && selected){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
+            //PreDecisionRange가 null, 이경우 아무 타일이나 누르면 발동함
+            if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile_) && PreDecisionRange == null){
+                selectedCard.spell.Decision(Vector2.zero);
+                DiscardCard(selectedCard);
+            }
             //적절한 타일을 고름
-            if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
+            else if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
                 selectedCard.spell.Decision(tile.position);
                 DiscardCard(selectedCard);
             }
@@ -242,8 +246,6 @@ public class CardManager : MonoBehaviour
     public SpellInfo getSpellInfo(int i){
         return spelldata.FindSpell(i);
     }
-
-
 
     void Update(){ 
         //디버그 용도

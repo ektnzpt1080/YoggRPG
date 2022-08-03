@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour
     public StageBuilder StageBuilder { get; private set; }
     public CardManager CardManager { get; private set; }
     List<Spell> cl = new List<Spell>();
-    public int clLength;
+    
+    [SerializeField] PlayerData playerdata;
+    
+
     private void Awake()
     {
         if (Instance != null && Instance != this) {
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         CardManager.SetCardList(cl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
+        stage_ex.player.Initialize(playerdata);
         BattleManager.StartBattle(stage_ex);
     }
 

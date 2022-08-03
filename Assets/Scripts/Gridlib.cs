@@ -152,8 +152,8 @@ public class Gridlib
         }
         else{
             foreach(Vector2 v in way){
-                for(int i = 0; i < distance; i++) {
-                    if(InRange(stage, pos + v * distance)) result.Add(pos + v * distance);
+                for(int i = 1; i <= distance; i++) {
+                    if(InRange(stage, pos + v * i)) result.Add(pos + v * i);
                 }
             }
         }

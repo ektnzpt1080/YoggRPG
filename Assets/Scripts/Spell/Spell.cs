@@ -15,7 +15,7 @@ public abstract class Spell
     
     public int GetValue(){
         Player p = GameManager.Instance.BattleManager.GetStage().player;
-        return Mathf.FloorToInt(spellinfo.basic + spellinfo.strCoeff * p.strenghth + spellinfo.intCoeff * p.intelligence + spellinfo.healthCoeff * p.maxHealth);
+        return Mathf.FloorToInt(spellinfo.basic + spellinfo.strCoeff * p.strength + spellinfo.intCoeff * p.intelligence + spellinfo.healthCoeff * p.maxHealth);
     }
 
 }

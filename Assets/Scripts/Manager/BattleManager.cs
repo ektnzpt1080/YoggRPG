@@ -16,7 +16,6 @@ public class BattleManager : MonoBehaviour
         playCardState,
         EndTurnState,
         EnemyAttackState,
-        
         EnemyMoveState,
     }
 
@@ -109,7 +108,7 @@ public class BattleManager : MonoBehaviour
         mana = 3;
     }
     public void EndStagePlayerDead(){
-        //player 사망
+        Debug.Log("Player dead");
     }
     public void EndStageEnemyDead(){
         Debug.Log("Enemy All Dead");
@@ -151,7 +150,7 @@ public class BattleManager : MonoBehaviour
 
     public void ClickMoveButton(){
         if (mana >= movementmana && state == State.selectBehaviourState){
-            foreach(Vector2 pos in Gridlib.CanReach(stage, stage.player.position, 2)){
+            foreach(Vector2 pos in Gridlib.CanReach(stage, stage.player.position, 1)){
                 stage.tiles[pos].Highlight();
             }
             state = State.pickMoveState;
@@ -190,8 +189,10 @@ public class BattleManager : MonoBehaviour
 
     public void EmphasizeTile( bool active, List<Vector2> tilePositions = null){
         if(tilePositions == null){
-            foreach (Tile t in stage.tiles.Values) {
-                t.targetTile(active);
+            if(active == false){
+                foreach (Tile t in stage.tiles.Values) {
+                    t.targetTile(active);
+                }
             }
         }
         else{

@@ -67,15 +67,6 @@ MonoBehaviour:
     strCoeff: 0
     intCoeff: 0
     healthCoeff: 0
-  - name: RunRunRun
-    identitynumber: 301
-    sprite: {fileID: 0}
-    text: move 3 tile 8-way
-    cost: 2
-    basic: 0
-    strCoeff: 0
-    intCoeff: 0
-    healthCoeff: 0
   - name: WoodShield
     identitynumber: 301
     sprite: {fileID: 0}

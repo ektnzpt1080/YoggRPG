@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] public EnemyData unitinfo;
-    public EnemyInfo info;
     [SerializeField] public int health;
     [SerializeField] public int strength;    
     [SerializeField] public Vector2 position;
@@ -13,7 +12,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void GetDamage( int damage ){
         health -= damage;
-        if(health == 0){
+        if(health <= 0){
             Debug.Log("enemy died");
             GameManager.Instance.BattleManager.RemoveEnemy(this);
             Destroy(this.gameObject);
@@ -21,6 +20,7 @@ public abstract class Enemy : MonoBehaviour
         else Debug.Log("enemy get damage");
     }
 
+    public abstract void Init(EnemyInfo enemyInfo);
     public abstract void Move(Stage stage);
     public abstract void Attack(Stage stage);
 
