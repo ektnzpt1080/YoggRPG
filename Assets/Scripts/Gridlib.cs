@@ -131,7 +131,7 @@ public class Gridlib
     }
     
     /// <summary>
-    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>까지 떨어진 위치들을 구함
+    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>까지 떨어진 위치들을 리턴함
     /// <distance>가 -1일시 distance는 무한이 됨
     /// </summary>
     public static List<Vector2> WayStraight(Stage stage, Vector2 pos, bool is8way, int distance = -1){
@@ -148,6 +148,7 @@ public class Gridlib
                         inRange = true;
                     }
                 }
+                i++;
             }
         }
         else{
@@ -160,4 +161,51 @@ public class Gridlib
         return result;
     }
 
+    /// <summary>
+    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>까지 떨어진 위치들을 리턴하되, assigned tile에 막힘
+    /// assigendtile도 포함해서 리턴함
+    /// <distance>가 -1일시 distance는 무한이 됨
+    /// </summary>
+    public static List<Vector2> WayStraightBlockable(Stage stage, Vector2 pos, bool is8way, int distance = -1){
+        List<Vector2> result = new List<Vector2>();
+        List<Vector2> way = is8way ? way8 : way4;
+        List<bool> iswayAvailable = new List<bool>();
+        for(int j = 0; j < way.Count; j++){
+            iswayAvailable.Add(true);
+        }
+
+        if(distance == -1 && stage != null){
+            bool inRange = true;
+            int i = 1;
+            while(inRange){
+                inRange = false;
+                for(int j = 0; j < way.Count; j++){
+                    Vector2 v = pos + way[j] * i;
+                    if(iswayAvailable[j] && InRange(stage, v)){
+                        result.Add(v);
+                        inRange = true;
+                        if(stage.AssignedTile().Contains(v)){
+                            iswayAvailable[j] = false;
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+        else{
+            for(int j = 0; j < way.Count; j++){
+                for(int i = 1; i <= distance; i++) {
+                    Vector2 v = pos + way[j] * i;
+                    if(iswayAvailable[j] && InRange(stage, pos + way[j] * i)) {
+                        result.Add(v);
+                        if(stage.AssignedTile().Contains(v)){
+                            iswayAvailable[j] = false;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return result;
+    }
 }

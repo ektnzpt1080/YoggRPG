@@ -10,6 +10,7 @@ public abstract class Spell
     string text; // 스펠 설명
 
     public abstract List<Vector2> PreDecision();
+    public abstract List<Vector2> YoggDecision();
     public abstract void Decision(Vector2 selectedPos);
     public abstract SpellInfo GetSpellInfo();
     

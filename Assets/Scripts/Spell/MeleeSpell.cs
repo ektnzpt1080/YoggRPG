@@ -8,9 +8,6 @@ public class Slash : Spell
 {
     List<Vector2> range = new List<Vector2>(){Vector2.left, Vector2.right, Vector2.up, Vector2.down};
 
-    public void Awake(){
-        number = 101;
-    }
     public override List<Vector2> PreDecision(){
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         List<Vector2> tilePositions = new List<Vector2>();
@@ -25,6 +22,9 @@ public class Slash : Spell
         }
         return tilePositions;
     }
+    public override List<Vector2> YoggDecision(){
+        return PreDecision();
+    }
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         for(int i = stage.enemies.Count - 1 ; i >= 0; i--){
@@ -36,6 +36,7 @@ public class Slash : Spell
     public override SpellInfo GetSpellInfo(){
         return GameManager.Instance.CardManager.getSpellInfo(101);
     }
+    
 }
 
 
@@ -58,6 +59,9 @@ public class Poke : Spell
         }
         return tilePositions;
     }
+    public override List<Vector2> YoggDecision(){
+        return PreDecision();
+    }
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         for(int i = stage.enemies.Count - 1 ; i >= 0 ; i--){
@@ -77,6 +81,9 @@ public class RoundSlash : Spell
     public override List<Vector2> PreDecision(){
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         return Gridlib.Circle(stage, stage.player.position);
+    }
+    public override List<Vector2> YoggDecision(){
+        return PreDecision();
     }
 
     public override void Decision(Vector2 selectedPos){
@@ -99,6 +106,9 @@ public class ShieldUp : Spell
 {
     public override List<Vector2> PreDecision(){
         return null;
+    }
+    public override List<Vector2> YoggDecision(){
+        return PreDecision();
     }
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        

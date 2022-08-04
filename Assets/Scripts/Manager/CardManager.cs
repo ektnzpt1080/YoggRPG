@@ -7,19 +7,20 @@ public class CardManager : MonoBehaviour
 {    
     public List<Spell> cardDeck {get;set;} // 덱의 카드
     public List<Spell> cardGrave {get;set;} // 묘지의 카드
+    public List<Spell> cardYogg {get;set;} // 요그사론의 카드
     public List<Card> cardHand {get;set;} // 핸드의 카드, 이쪽은 진짜 카드로 관리됨
     [SerializeField] Card cardObject;
-    [SerializeField] Transform rightCardTransform;
-    [SerializeField] Transform leftCardTransform;
-    [SerializeField] Transform deckTransform;
+    [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform;
     [SerializeField] SpellData spelldata;
 
     int maxCardCount = 10; // 최대 10장을 들 수 있음
+    int yoggCounter = 5; // 이후 카드를 사용할때 마다 사용되는 것으로 바꿀 것
     [SerializeField] bool selected;
     Card selectedCard;
     List<Vector2> PreDecisionRange;
 
-    public void SetCardList(List<Spell> SpellList){
+    //카드매니저를 시작시킴
+    public void SetCardList(List<Spell> SpellList, List<Spell> YoggSpellList){
         List<Spell> cards = new List<Spell>(SpellList);
         List<Spell> shuffled = new List<Spell>();
         cardHand = new List<Card>();
@@ -33,8 +34,10 @@ public class CardManager : MonoBehaviour
         cardDeck = shuffled;
         selected = false;
         PreDecisionRange = new List<Vector2>();
+        cardYogg = new List<Spell>(YoggSpellList);
     }
 
+    //카드를 한장 뽑음
     public void DrawCard(){
         if(cardDeck.Count == 0){
             if(cardGrave.Count == 0){
@@ -52,7 +55,6 @@ public class CardManager : MonoBehaviour
         else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
             drawCard.Copy(cardDeck[0]);
-            drawCard.CardInit();
             cardHand.Add(drawCard);
             cardDeck.RemoveAt(0);
             CardHandAlliance();
@@ -117,6 +119,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //카드에 마우스를 올려 카드 사이즈를 바꿈
     public void ChangeCardSize(Card card, bool isLarge){
         if(!selected){
             if(isLarge){
@@ -144,6 +147,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //카드들을 원래 위치로 돌림
     public void CardReturnPRS(Card card){
         foreach(Card othercard in cardHand){
             if(othercard == card){
@@ -183,6 +187,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //카드를 고름
     public void PickCard(){
         if((Input.GetMouseButtonDown(0)) && !selected){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -195,6 +200,7 @@ public class CardManager : MonoBehaviour
         
     }
 
+    //카드를 플레이함
     public void PlayCard(){
         if((Input.GetMouseButtonDown(0)) && selected){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -225,6 +231,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //카드를 버림
     void DiscardCard(Card card){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
         cardHand.Remove(card);
@@ -233,6 +240,7 @@ public class CardManager : MonoBehaviour
         CardHandAlliance();
     }
 
+    //카드를 무덤에서 덱으로 다시 섞음
     void ShuffleCard(){
         int count = cardGrave.Count;
         for(int i = 0; i < count; i++){
@@ -243,9 +251,43 @@ public class CardManager : MonoBehaviour
         GameManager.Instance.BattleManager.InitializeMovementMana();
     }
 
+    //요그님 호출 발동
+    public IEnumerator PlayYogg(){
+        //발동할 카드들을 고름
+        List<Spell> yogglist = new List<Spell>();
+        List<Spell> yogg = new List<Spell>(cardYogg);
+        for(int i = 0 ; i < yoggCounter ; i++){
+            if(yogg.Count <= 0){
+                Debug.Log("Not Enough Yogg Deck Card Quantity");
+                break;
+            }
+            int picked = Random.Range(0, yogg.Count);
+            yogglist.Add(yogg[picked]);
+            yogg.RemoveAt(picked);
+        }
+        
+        foreach (Spell spell in yogglist){
+            //카드를 생성시킴
+            //Card yoggInstCard = GameObject.Instantiate(cardObject, 적절한 위치에서 생성, Quaternion.identity);
+
+            //카드를 플레이함
+            
+
+
+            
+
+        }
+        
+
+
+        return null;
+        // 나중에 yoggCounter = 0;
+    }
+
     public SpellInfo getSpellInfo(int i){
         return spelldata.FindSpell(i);
     }
+
 
     void Update(){ 
         //디버그 용도

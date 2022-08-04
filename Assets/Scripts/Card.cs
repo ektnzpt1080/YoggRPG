@@ -31,8 +31,13 @@ public class Card : MonoBehaviour
         backSpriteRenderer.sortingOrder = order * 10 - 1;
     }
     
+    //카드에 spell을 넣고, 준비시킴
     public void Copy(Spell _spell){
         spell = _spell;
+        spell.spellinfo = spell.GetSpellInfo();
+        _name = spell.spellinfo.name;
+        _cost = spell.spellinfo.cost;
+        _text = spell.spellinfo.text;
     }
 
     public void OnMouseOver(){
@@ -60,13 +65,6 @@ public class Card : MonoBehaviour
 
     public Spell getSpell(){
         return spell;
-    }
-
-    public void CardInit(){
-        spell.spellinfo = spell.GetSpellInfo();
-        _name = spell.spellinfo.name;
-        _cost = spell.spellinfo.cost;
-        _text = spell.spellinfo.text;
     }
 
     public void Update(){

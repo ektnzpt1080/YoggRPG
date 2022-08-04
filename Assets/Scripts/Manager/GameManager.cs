@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public StageBuilder StageBuilder { get; private set; }
     public CardManager CardManager { get; private set; }
     List<Spell> cl = new List<Spell>();
-    
+    List<Spell> yl = new List<Spell>();
+
     [SerializeField] PlayerData playerdata;
     
 
@@ -43,7 +44,19 @@ public class GameManager : MonoBehaviour
         cl.Add(new ShieldUp());
         cl.Add(new WoodShield());
 
-        CardManager.SetCardList(cl);
+        yl.Add(new Poke());
+        yl.Add(new Poke());
+        yl.Add(new Step());
+        yl.Add(new Step());
+        yl.Add(new RunRunRun());
+        yl.Add(new Slash());
+        yl.Add(new Slash());
+        yl.Add(new RoundSlash());
+        yl.Add(new ShieldUp());
+        yl.Add(new ShieldUp());
+        yl.Add(new WoodShield());
+
+        CardManager.SetCardList(cl, yl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
         stage_ex.player.Initialize(playerdata);
         BattleManager.StartBattle(stage_ex);
