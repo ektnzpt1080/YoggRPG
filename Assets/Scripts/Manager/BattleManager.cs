@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
         pickMoveState,
         pickCardState,
         playCardState,
+        YoggCallingState,
         EndTurnState,
         EnemyAttackState,
         EnemyMoveState,
@@ -66,7 +67,7 @@ public class BattleManager : MonoBehaviour
                 //카드 애니메이션 재생
                 case State.playCardState :
                     break;
-                //턴 종료
+                //턴 종료, 요그사론 공격등이 나감
                 case State.EndTurnState :
                     break;
                 //상대 턴 공격 상태, 지정된 범위를 공격함
@@ -91,32 +92,49 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //스테이지 배틀 시작
     public void StartBattle(Stage s){
         isBattle = true;
         state = State.startBattleState;
         stage = s;
     }
-    public Stage GetStage(){
-        return stage;
-    }
+
+    //Player Turn End
     public void EndPlayerTurn(){
         if(Input.GetKeyDown(KeyCode.Z)){
             state = State.EnemyAttackState;
             StartCoroutine(_EnemyAttackStart(stage));
+            //나중에 EndTurnState로 바꾸고 턴종료시에 하는 일들을 해야 됨
+
         }
     }
+
+    //Player Call Yogg
+    public void EndPlayerTurnWithYogg(){
+        if(Input.GetKeyDown(KeyCode.X)){
+            state = State.YoggCallingState;
+            
+        }
+    }
+
+    //Enemy Turn End
     public void EndEnemyTurn(){
         state = State.drawCardState;
         mana = 3;
         stage.player.shield = 0;
     }
+
+    //Player Dead
     public void EndStagePlayerDead(){
         Debug.Log("Player dead");
     }
+
+    //Enemy All Dead
     public void EndStageEnemyDead(){
         Debug.Log("Enemy All Dead");
     }
     
+    //모든 Enemy가 Attack하게 함
     private IEnumerator _EnemyAttackStart(Stage stage){
         foreach(Enemy enemy in stage.enemies){
             enemyActing = true;
@@ -129,6 +147,7 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(_EnemyMoveStart(stage));
     }
     
+    //모든 Enemy가 Move하게 함
     private IEnumerator _EnemyMoveStart(Stage stage){
         foreach(Enemy enemy in stage.enemies){
             enemyActing = true;
@@ -141,9 +160,7 @@ public class BattleManager : MonoBehaviour
         state = State.drawCardState;
     }
 
-    public void EndEnemyAct(){
-        enemyActing = false;
-    }
+    //Enemy가 죽게 함
     public void RemoveEnemy(Enemy enemy){
         stage.enemies.Remove(enemy);
         if(stage.enemies.Count == 0){
@@ -151,6 +168,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //MoveButton이 눌렸을 시 호출, 갈 수 있는 위치를 표시
     public void ClickMoveButton(){
         if (mana >= movementmana && state == State.selectBehaviourState){
             foreach(Vector2 pos in Gridlib.CanReach(stage, stage.player.position, 1)){
@@ -160,6 +178,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //누른 위치로 player를 이동시킴
     public void MoveButton(){
         if (Input.GetMouseButtonDown(0)){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -181,6 +200,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //카드를 Select했는지 알려줌, select가 true일시 카드를 select한 상태
     public void Select(bool select){
         if(select){
             state = State.pickCardState;
@@ -190,6 +210,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //Tile을 highlight를 active 상태로 만듦 tilePositions가 null일시 모든 highlight를 끔
     public void EmphasizeTile( bool active, List<Vector2> tilePositions = null){
         if(tilePositions == null){
             if(active == false){
@@ -208,4 +229,13 @@ public class BattleManager : MonoBehaviour
     public void InitializeMovementMana(){
         movementmana = 1;
     }
+
+    public Stage GetStage(){
+        return stage;
+    }
+
+    public void EndEnemyAct(){
+        enemyActing = false;
+    }
+    
 }
