@@ -33,10 +33,10 @@ public class Slash : Spell
             }
         }
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(101);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(101);
     }
-    
+
 }
 
 
@@ -70,8 +70,8 @@ public class Poke : Spell
             }
         }
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(102);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(102);
     }
 }
 
@@ -96,8 +96,8 @@ public class RoundSlash : Spell
             }
         }
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(103);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(103);
     }
 }
 
@@ -114,7 +114,7 @@ public class ShieldUp : Spell
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         stage.player.shield += GetValue();
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(104);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(104);
     }
 }

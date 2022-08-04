@@ -268,19 +268,28 @@ public class CardManager : MonoBehaviour
         
         foreach (Spell spell in yogglist){
             //카드를 생성시킴
-            //Card yoggInstCard = GameObject.Instantiate(cardObject, 적절한 위치에서 생성, Quaternion.identity);
+            //Card yoggInstCard = GameObject.Instantiate(cardObject, 적절한 위치, Quaternion.identity);
+            //yoggInstCard.Copy(spell);
+            //yoggInstCard.DoMove(어딘가로)
+            //card의 카테고리를 나눠야 될듯
 
             //카드를 플레이함
-            
-
-
-            
-
+            spell.GetSpellInfo();
+            Debug.Log("시전 " + yogglist.IndexOf(spell) + " : " + spell.spellinfo.name);
+            List<Vector2> sl = spell.YoggDecision();
+            if(sl == null){
+                spell.Decision(Vector3.zero);    
+            }
+            else if(sl.Count == 0){
+                Debug.Log("불발");
+            }
+            else{
+                spell.Decision(sl[Random.Range(0, sl.Count)]);
+            }    
         }
-        
+        GameManager.Instance.BattleManager.YoggEnd();
+        yield break;
 
-
-        return null;
         // 나중에 yoggCounter = 0;
     }
 
