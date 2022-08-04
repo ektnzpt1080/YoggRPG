@@ -24,8 +24,8 @@ public class Step : Spell
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         stage.player.Move(stage.tiles[selectedPos]);
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(201);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(201);
     }
 }
 
@@ -50,7 +50,7 @@ public class RunRunRun : Spell
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         stage.player.Move(stage.tiles[selectedPos]);
     }
-    public override SpellInfo GetSpellInfo(){
-        return GameManager.Instance.CardManager.getSpellInfo(202);
+    public override void GetSpellInfo(){
+        spellinfo = GameManager.Instance.CardManager.getSpellInfo(202);
     }
 }

@@ -12,7 +12,7 @@ public abstract class Spell
     public abstract List<Vector2> PreDecision();
     public abstract List<Vector2> YoggDecision();
     public abstract void Decision(Vector2 selectedPos);
-    public abstract SpellInfo GetSpellInfo();
+    public abstract void GetSpellInfo();
     
     public int GetValue(){
         Player p = GameManager.Instance.BattleManager.GetStage().player;

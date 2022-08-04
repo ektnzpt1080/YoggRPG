@@ -34,7 +34,7 @@ public class Card : MonoBehaviour
     //카드에 spell을 넣고, 준비시킴
     public void Copy(Spell _spell){
         spell = _spell;
-        spell.spellinfo = spell.GetSpellInfo();
+        spell.GetSpellInfo();
         _name = spell.spellinfo.name;
         _cost = spell.spellinfo.cost;
         _text = spell.spellinfo.text;
