@@ -9,16 +9,19 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Enemy enemy;
     Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
-    
+    [SerializeField] private EnemyData enemydata;
 
     public Stage GenerateStage(int w, int h, int e){
         //나중에 enemy를 List로 받아서 만들게 할것
         GenerateGrid(w,h);
+        
         Player pb = Instantiate(player, new Vector3(3,3,-1), Quaternion.identity);        
         pb.position = new Vector2 (3,3);
+        
         List<Vector2> assignedPositions = new List<Vector2>();
+        assignedPositions.Add(pb.position);
+        
         List<Enemy> assignedEnemies = new List<Enemy>();
-        assignedPositions.Add(new Vector2(3,3));
         Vector2 assignPos;
         for (int i = 0; i < e ; i++){
             do{
@@ -27,6 +30,7 @@ public class GridManager : MonoBehaviour
                 assignPos = new Vector2(x, y);
             } while(assignedPositions.Contains(assignPos));
             Enemy spawnedEnemy = Instantiate(enemy, new Vector3(assignPos.x,assignPos.y,-1), Quaternion.identity);
+            spawnedEnemy.Init(enemydata.Enemies[0]);
             spawnedEnemy.position = assignPos;
             assignedPositions.Add(assignPos);
             assignedEnemies.Add(spawnedEnemy);
