@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour
     public List<Card> cardHand {get;set;} // 핸드의 카드, 이쪽은 진짜 카드로 관리됨
     [SerializeField] Card cardObject;
     [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform;
+    [SerializeField] Transform yoggInitTransform, showCardTransform;
     [SerializeField] SpellData spelldata;
 
     int maxCardCount = 10; // 최대 10장을 들 수 있음
@@ -54,7 +55,7 @@ public class CardManager : MonoBehaviour
         }
         else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
-            drawCard.Copy(cardDeck[0]);
+            drawCard.Copy(cardDeck[0], Card.CardType.handCard);
             cardHand.Add(drawCard);
             cardDeck.RemoveAt(0);
             CardHandAlliance();
@@ -268,14 +269,17 @@ public class CardManager : MonoBehaviour
         
         foreach (Spell spell in yogglist){
             //카드를 생성시킴
-            //Card yoggInstCard = GameObject.Instantiate(cardObject, 적절한 위치, Quaternion.identity);
-            //yoggInstCard.Copy(spell);
-            //yoggInstCard.DoMove(어딘가로)
-            //card의 카테고리를 나눠야 될듯
+            Card yoggInstCard = GameObject.Instantiate(cardObject, yoggInitTransform.position, Quaternion.identity);
+            yoggInstCard.Copy(spell, Card.CardType.yoggCard);
+            float movetime = 0.5f;
+            yoggInstCard.MoveTransform(new PRS(showCardTransform.position, Quaternion.identity, cardObject.transform.localScale * 1.8f), true, movetime);
+            yield return new WaitForSeconds(movetime + 0.5f);
+
+            GameObject.Destroy(yoggInstCard.gameObject);
 
             //카드를 플레이함
             spell.GetSpellInfo();
-            Debug.Log("시전 " + yogglist.IndexOf(spell) + " : " + spell.spellinfo.name);
+            Debug.Log("시전 " + (yogglist.IndexOf(spell) + 1)+ " : " + spell.spellinfo.name);
             List<Vector2> sl = spell.YoggDecision();
             if(sl == null){
                 spell.Decision(Vector3.zero);    
@@ -285,7 +289,8 @@ public class CardManager : MonoBehaviour
             }
             else{
                 spell.Decision(sl[Random.Range(0, sl.Count)]);
-            }    
+            }
+            yield return new WaitForSeconds(0.2f);
         }
         GameManager.Instance.BattleManager.YoggEnd();
         yield break;

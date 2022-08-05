@@ -22,8 +22,9 @@ public class BattleManager : MonoBehaviour
 
     bool isBattle;//battle이 시작되었는지
     bool enemyActing;//enmey가 행동중
-    bool switched;//state가 바뀌었는지
+    bool switched;//state가 바뀌었는지, 스테이트가 바뀌고 한번만 호출 되야 하는 것들이 있어서 만듦, 별로 좋은 방법은 아닌거 같아서 바꾸고 싶긴 함. 
     int mana; //마나
+    int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
 
