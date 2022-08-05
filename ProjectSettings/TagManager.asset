@@ -51,3 +51,6 @@ TagManager:
   - name: User
     uniqueID: 743807459
     locked: 0
+  - name: Text
+    uniqueID: 3391677277
+    locked: 0

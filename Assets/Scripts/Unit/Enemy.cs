@@ -11,6 +11,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] public List<Vector2> attackRange;
 
     public void GetDamage( int damage ){
+        DamageText dt = Instantiate(GameManager.Instance.BattleManager.damageText, this.transform.position, Quaternion.identity);
+        dt.Initialize("-" + damage, 0.5f);
         health -= damage;
         if(health <= 0){
             Debug.Log("enemy died");

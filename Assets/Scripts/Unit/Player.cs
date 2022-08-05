@@ -12,19 +12,31 @@ public class Player : MonoBehaviour
     [SerializeField] public int shield { get; set;}
     
     public void GetDamage(int d){
-        if(shield > d){
+        string s;
+        if(shield == 0){
+            health -= d;
+            s = "-" + d;
+        }
+        else if(shield >= d){
             shield -= d;
+            s = "(-" + d + ")";
         }
         else {
+            s = "(-"+ shield +")\n-" + d; 
             health -= d - shield;
             shield = 0;
         }
+
+        DamageText dt = Instantiate(GameManager.Instance.BattleManager.damageText, this.transform.position, Quaternion.identity);
+        dt.Initialize(s, 0.5f);
 
         Debug.Log("Player Get Damaged : -" + d);
         if(health <= 0 ){
             health = 0;
             GameManager.Instance.BattleManager.EndStagePlayerDead();
         }
+
+
     }
 
     public void Move(Tile tile){

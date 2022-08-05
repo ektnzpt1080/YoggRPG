@@ -27,16 +27,15 @@ public class BattleManager : MonoBehaviour
     int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
-
     State state;
     Stage stage;
-    [SerializeField] private Color clickedColor;
-    [SerializeField] private Color nonclickedColor;
     
+    public DamageText damageText;
+
     [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
     [SerializeField] Button moveButton;
     [SerializeField] TextMeshProUGUI moveButtonText;
-
+    
         //스테이지 배틀 시작
     public void StartBattle(Stage s){
         isBattle = true;
