@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public GridManager GridManager { get; private set; }
     public BattleManager BattleManager { get; private set; }
-    public StageBuilder StageBuilder { get; private set; }
     public CardManager CardManager { get; private set; }
     List<Spell> cl = new List<Spell>();
     List<Spell> yl = new List<Spell>();
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
 
         GridManager = GetComponentInChildren<GridManager>();
         BattleManager = GetComponentInChildren<BattleManager>();
-        StageBuilder = GetComponentInChildren<StageBuilder>();
         CardManager = GetComponentInChildren<CardManager>();
     }
 

@@ -848,8 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93dc64ad00c83974aaa31f2982e13e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedColor: {r: 0.21960784, g: 0.6039216, b: 0.9254902, a: 1}
-  nonclickedColor: {r: 0.56078434, g: 0.98039216, b: 1, a: 1}
+  damageText: {fileID: 7628491300269426468, guid: d84b58b82f3f58b4aaf43122bbad440f, type: 3}
   manatext: {fileID: 98869797}
   hptext: {fileID: 1341265148}
   shieldtext: {fileID: 992998853}
