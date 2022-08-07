@@ -8,7 +8,6 @@ public class Gridlib
     static List<Vector2> way8 = new List<Vector2> {Vector2.right, Vector2.left, Vector2.up, Vector2.down,
         Vector2.right + Vector2.up, Vector2.right + Vector2.down, Vector2.left + Vector2.up, Vector2.left + Vector2.down};
 
-
     /// <summary>
     /// 두 점 p1, p2가 인접해있다면 true, 아니면 false를 반환 
     /// </summary>
@@ -26,10 +25,12 @@ public class Gridlib
             return true;
         }
         else return false;
+        
     }
 
     /// <summary>
     /// stage에서 startpoint에서 endpoint로 가는 경로를 normalized Vector2의 List 형태로 반환
+    /// 장애물을 고려함
     /// </summary>
     public static List<Vector2> FindWay(Stage stage, Vector2 startpoint, Vector2 endpoint){
         List <Vector2> lastVisitedPoints = new List<Vector2>();
@@ -66,13 +67,16 @@ public class Gridlib
         return result;
     }
     
+    
     /// <summary>
     /// size.x * size.y의 직사각형안에 p가 있으면 true를, 아니면 false를 반환
     /// </summary>
     public static bool InRange(Vector2 size, Vector2 p){
         if(p.x >= 0 && p.x < size.x && p.y >= 0 && p.y < size.y) return true;
         else return false;
+        
     }
+    
     /// <summary>
     /// stage 안에 p가 있으면 true를, 아니면 false를 반환
     /// </summary>
@@ -89,7 +93,7 @@ public class Gridlib
     }
 
     /// <summary>
-    /// position에서 4방향으로 <movement>번 이동해서 갈 수 있는 좌표들을 List<Vector2>의 형태로 반환
+    /// position에서 4방향으로 movement번 이동해서 갈 수 있는 좌표들을 List&lt;Vector2&gt;의 형태로 반환
     /// Stage의 장애물을 고려함
     /// </summary>
     public static List<Vector2> CanReach(Stage stage, Vector2 position, int movement){
@@ -109,12 +113,16 @@ public class Gridlib
             lastVisitedPoints = temp;
         }
 
+        
         return result;
     }
 
+    
+
     /// <summary>
-    /// <vectorList>에 있는 좌표들중 <pos>에 더 가까운 좌표를 순서대로 List<Vector2>형태로 반환
+    /// vectorList에 있는 좌표들중 pos에 더 가까운 좌표를 순서대로 List&lt;Vector2&gt;형태로 반환
     /// </summary>
+
     public static List<Vector2> ClosePositions(List<Vector2> vectorList, Vector2 pos){
         List<Vector2> result = new List<Vector2>();
         List<(float, Vector2)> distanceList = new List<(float, Vector2)>();
@@ -128,11 +136,14 @@ public class Gridlib
             result.Add(fv.Item2);
         }
         return result;
+        
     }
+
+    
     
     /// <summary>
-    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>까지 떨어진 위치들을 리턴함
-    /// <distance>가 -1일시 distance는 무한이 됨
+    /// pos를 기준으로 4방향 혹은 8방향 직선으로 distance까지 떨어진 위치들을 리턴함
+    /// distance가 -1일시 distance는 무한이 됨
     /// </summary>
     public static List<Vector2> WayStraight(Stage stage, Vector2 pos, bool is8way, int distance = -1){
         List<Vector2> result = new List<Vector2>();
@@ -162,9 +173,9 @@ public class Gridlib
     }
 
     /// <summary>
-    /// <pos>를 기준으로 4방향 혹은 8방향 직선으로 <distance>까지 떨어진 위치들을 리턴하되, assigned tile에 막힘
-    /// assigendtile도 포함해서 리턴함
-    /// <distance>가 -1일시 distance는 무한이 됨
+    /// pos를 기준으로 4방향 혹은 8방향 직선으로 distance까지 떨어진 위치들을 리턴하되, assigned tile에 막힘
+    /// assignedtile도 포함해서 리턴함
+    /// distance가 -1일시 distance는 무한이 됨
     /// </summary>
     public static List<Vector2> WayStraightBlockable(Stage stage, Vector2 pos, bool is8way, int distance = -1){
         List<Vector2> result = new List<Vector2>();

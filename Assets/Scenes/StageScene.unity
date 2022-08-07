@@ -1070,6 +1070,7 @@ MonoBehaviour:
   player: {fileID: 2736590528930617076, guid: 88811a558142b4f4fa95b8df7da253a6, type: 3}
   cam: {fileID: 519420031}
   enemy: {fileID: 3162226211093654043, guid: 3d12d1c39d302b44ea9c6bc8e1ffe916, type: 3}
+  enemy2: {fileID: 3116766861502914782, guid: 1cdc7627bcd69ab42ba310fd2ad469a6, type: 3}
   enemydata: {fileID: 11400000, guid: 209653f511dc1b6408447c93587f036f, type: 2}
 --- !u!4 &1335057721
 Transform:

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] public EnemyData unitinfo;
-    [SerializeField] public int health;
-    [SerializeField] public int strength;    
-    [SerializeField] public Vector2 position;
-    [SerializeField] public List<Vector2> attackRange;
+    public int health;
+    public int strength;    
+    public Vector2 position;
+    public List<Vector2> attackRange;
 
     public void GetDamage( int damage ){
         DamageText dt = Instantiate(GameManager.Instance.BattleManager.damageText, this.transform.position, Quaternion.identity);

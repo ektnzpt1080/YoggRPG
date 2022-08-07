@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile tilePrefab;
     [SerializeField] private Player player;
     [SerializeField] private Camera cam;
-    [SerializeField] private Enemy enemy;
+    [SerializeField] private Enemy enemy, enemy2;
     Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
     [SerializeField] private EnemyData enemydata;
 
@@ -29,8 +29,8 @@ public class GridManager : MonoBehaviour
                 int y = Random.Range(0,7);
                 assignPos = new Vector2(x, y);
             } while(assignedPositions.Contains(assignPos));
-            Enemy spawnedEnemy = Instantiate(enemy, new Vector3(assignPos.x,assignPos.y,-1), Quaternion.identity);
-            spawnedEnemy.Init(enemydata.Enemies[0]);
+            Enemy spawnedEnemy = Instantiate(enemy2, new Vector3(assignPos.x,assignPos.y,-1), Quaternion.identity);
+            spawnedEnemy.Init(enemydata.Enemies[1]);
             spawnedEnemy.position = assignPos;
             assignedPositions.Add(assignPos);
             assignedEnemies.Add(spawnedEnemy);

@@ -4,29 +4,31 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
+
+    protected int movement; //3번 움직일 수 있음
+
     //두 칸 4방향으로 움직이고 공격
     //공격 후 턴이 종료됨
     public override void Init(EnemyInfo ei){
         health = ei.health;
         strength = ei.strength;
-
         //나중에 맵에 따라서 자동으로 성장하도록 만들 것
     }
 
     public override void Move(Stage stage){
-        StartCoroutine(_Move(stage));
+        StartCoroutine(this._Move(stage));
     }
     
     public override void Attack(Stage stage){
-        StartCoroutine(_Attack(stage));
+        StartCoroutine(this._Attack(stage));
     }
     
     private IEnumerator _Move(Stage stage){
-        int movement = 3; //2번 움직일 수 있음
+        movement = 3;
         List<Vector2> way = Gridlib.FindWay(stage,position,stage.player.position);
         attackRange = new List<Vector2>();
         for(int i = 0; i < movement; i++){    
-            if(way == null) break; // 갈수 없으면 움직이지 않음
+            if(way == null) break; // 갈 수 없으면 움직이지 않음
             if(Gridlib.IsAdjacent(stage.player.position, position) ){
                 attackRange = new List<Vector2>(){stage.player.position};
                 break;
