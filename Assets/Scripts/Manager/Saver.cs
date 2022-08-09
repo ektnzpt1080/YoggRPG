@@ -37,8 +37,8 @@ public class Saver : MonoBehaviour
         cl.Add(new Step());
         cl.Add(new Step());
         cl.Add(new RunRunRun());
-        cl.Add(new Slash());
-        cl.Add(new Slash());
+        //cl.Add(new Slash());
+       // cl.Add(new Slash());
         cl.Add(new RoundSlash());
         cl.Add(new ShieldUp());
         cl.Add(new ShieldUp());
@@ -46,8 +46,8 @@ public class Saver : MonoBehaviour
 
         yl.Add(new Poke());
         yl.Add(new Poke());
-        yl.Add(new Slash());
-        yl.Add(new Slash());
+        //yl.Add(new Slash());
+        //yl.Add(new Slash());
         yl.Add(new RoundSlash());
         yl.Add(new ShieldUp());
         yl.Add(new ShieldUp());

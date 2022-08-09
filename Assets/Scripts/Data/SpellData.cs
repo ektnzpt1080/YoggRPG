@@ -15,6 +15,7 @@ public class SpellInfo
     public float strCoeff;
     public float intCoeff;
     public float healthCoeff;
+    public Spell spell;
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpellData", order = 3)]
@@ -33,3 +34,5 @@ public class SpellData : ScriptableObject
         return result;
     }
 }
+
+

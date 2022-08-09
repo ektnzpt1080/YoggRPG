@@ -1019,6 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerdata: {fileID: 11400000, guid: b9ca757d070e3674f9d7dd55326d6cdd, type: 2}
+  saver: {fileID: 0}
 --- !u!4 &1271101135
 Transform:
   m_ObjectHideFlags: 0

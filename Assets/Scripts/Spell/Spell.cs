@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Spell
+[System.Serializable]
+public abstract class Spell : ScriptableObject
 {
-    public SpellInfo spellinfo {get; set;}
-    public int number {get; set;} // 스펠 고유 넘버
-    Sprite sprite; // 스펠 스프라이트
-    string text; // 스펠 설명
+    public SpellInfo spellinfo;
+    public int number; // 스펠 고유 넘버
 
     public abstract List<Vector2> PreDecision();
     public abstract List<Vector2> YoggDecision();

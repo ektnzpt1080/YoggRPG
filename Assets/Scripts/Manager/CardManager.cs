@@ -5,14 +5,14 @@ using DG.Tweening;
 
 public class CardManager : MonoBehaviour
 {    
-    public List<Spell> cardDeck {get;set;} // 덱의 카드
-    public List<Spell> cardGrave {get;set;} // 묘지의 카드
-    public List<Spell> cardYogg {get;set;} // 요그사론의 카드
+    public List<SpellInfo> cardDeck {get;set;} // 덱의 카드
+    public List<SpellInfo> cardGrave {get;set;} // 묘지의 카드
+    public List<SpellInfo> cardYogg {get;set;} // 요그사론의 카드
     public List<Card> cardHand {get;set;} // 핸드의 카드, 이쪽은 진짜 카드로 관리됨
     [SerializeField] Card cardObject;
     [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform;
     [SerializeField] Transform yoggInitTransform, showCardTransform;
-    [SerializeField] SpellData spelldata;
+    [SerializeField] public SpellData spelldata;
 
     int maxCardCount = 10; // 최대 10장을 들 수 있음
     int yoggCounter = 5; // 이후 카드를 사용할때 마다 사용되는 것으로 바꿀 것
@@ -21,11 +21,11 @@ public class CardManager : MonoBehaviour
     List<Vector2> PreDecisionRange;
 
     //카드매니저를 시작시킴
-    public void SetCardList(List<Spell> SpellList, List<Spell> YoggSpellList){
-        List<Spell> cards = new List<Spell>(SpellList);
-        List<Spell> shuffled = new List<Spell>();
+    public void SetCardList(List<SpellInfo> SpellList, List<SpellInfo> YoggSpellList){
+        List<SpellInfo> cards = new List<SpellInfo>(SpellList);
+        List<SpellInfo> shuffled = new List<SpellInfo>();
         cardHand = new List<Card>();
-        cardGrave = new List<Spell>();
+        cardGrave = new List<SpellInfo>();
         int count = cards.Count;
         for(int i = 0; i < count; i++){
             int j = Random.Range(0, cards.Count);
@@ -35,7 +35,7 @@ public class CardManager : MonoBehaviour
         cardDeck = shuffled;
         selected = false;
         PreDecisionRange = new List<Vector2>();
-        cardYogg = new List<Spell>(YoggSpellList);
+        cardYogg = new List<SpellInfo>(YoggSpellList);
     }
 
     //카드를 한장 뽑음
@@ -55,7 +55,7 @@ public class CardManager : MonoBehaviour
         }
         else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
-            drawCard.Copy(cardDeck[0], Card.CardType.handCard);
+            drawCard.Copy(cardDeck[0].spell, Card.CardType.handCard);
             cardHand.Add(drawCard);
             cardDeck.RemoveAt(0);
             CardHandAlliance();
@@ -236,7 +236,7 @@ public class CardManager : MonoBehaviour
     void DiscardCard(Card card){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
         cardHand.Remove(card);
-        cardGrave.Add(card.spell);
+        cardGrave.Add(card.spell.spellinfo);
         GameObject.Destroy(card.gameObject);
         CardHandAlliance();
     }
@@ -255,8 +255,8 @@ public class CardManager : MonoBehaviour
     //요그님 호출 발동
     public IEnumerator PlayYogg(){
         //발동할 카드들을 고름
-        List<Spell> yogglist = new List<Spell>();
-        List<Spell> yogg = new List<Spell>(cardYogg);
+        List<SpellInfo> yogglist = new List<SpellInfo>();
+        List<SpellInfo> yogg = new List<SpellInfo>(cardYogg);
         for(int i = 0 ; i < yoggCounter ; i++){
             if(yogg.Count <= 0){
                 Debug.Log("Not Enough Yogg Deck Card Quantity");
@@ -267,10 +267,10 @@ public class CardManager : MonoBehaviour
             yogg.RemoveAt(picked);
         }
         
-        foreach (Spell spell in yogglist){
+        foreach (SpellInfo spellinfo in yogglist){
             //카드를 생성시킴
             Card yoggInstCard = GameObject.Instantiate(cardObject, yoggInitTransform.position, Quaternion.identity);
-            yoggInstCard.Copy(spell, Card.CardType.yoggCard);
+            yoggInstCard.Copy(spellinfo.spell, Card.CardType.yoggCard);
             float movetime = 0.5f;
             yoggInstCard.MoveTransform(new PRS(showCardTransform.position, Quaternion.identity, cardObject.transform.localScale * 1.8f), true, movetime);
             yield return new WaitForSeconds(movetime + 0.5f);
@@ -278,17 +278,17 @@ public class CardManager : MonoBehaviour
             GameObject.Destroy(yoggInstCard.gameObject);
 
             //카드를 플레이함
-            spell.GetSpellInfo();
-            Debug.Log("시전 " + (yogglist.IndexOf(spell) + 1)+ " : " + spell.spellinfo.name);
-            List<Vector2> sl = spell.YoggDecision();
+            spellinfo.spell.GetSpellInfo();
+            Debug.Log("시전 " + (yogglist.IndexOf(spellinfo) + 1)+ " : " + spellinfo.name);
+            List<Vector2> sl = spellinfo.spell.YoggDecision();
             if(sl == null){
-                spell.Decision(Vector3.zero);    
+                spellinfo.spell.Decision(Vector3.zero);    
             }
             else if(sl.Count == 0){
                 Debug.Log("불발");
             }
             else{
-                spell.Decision(sl[Random.Range(0, sl.Count)]);
+                spellinfo.spell.Decision(sl[Random.Range(0, sl.Count)]);
             }
             yield return new WaitForSeconds(0.2f);
         }

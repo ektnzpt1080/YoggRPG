@@ -29,6 +29,8 @@ public class BattleManager : MonoBehaviour
     int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
+
+
     State state;
     Stage stage;
     

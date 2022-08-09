@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     public GridManager GridManager { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public CardManager CardManager { get; private set; }
-    List<Spell> cl = new List<Spell>();
-    List<Spell> yl = new List<Spell>();
+    List<SpellInfo> cl = new List<SpellInfo>();
+    List<SpellInfo> yl = new List<SpellInfo>();
 
     [SerializeField] PlayerData playerdata;
     public Saver saver;
@@ -30,7 +30,13 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
-        CardManager.SetCardList(saver.cl, saver.yl);
+        cl.Add(CardManager.spelldata.spellinfo[0]);
+        cl.Add(CardManager.spelldata.spellinfo[1]);
+        cl.Add(CardManager.spelldata.spellinfo[0]);
+        cl.Add(CardManager.spelldata.spellinfo[0]);
+        cl.Add(CardManager.spelldata.spellinfo[0]);
+
+        CardManager.SetCardList(cl, yl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
         stage_ex.player.Initialize(saver.player);
         BattleManager.StartBattle(stage_ex);
