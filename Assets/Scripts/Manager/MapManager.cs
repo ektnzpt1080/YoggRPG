@@ -18,7 +18,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Color startColor, bossColor, restColor, stageColor, eventColor;
 
     [SerializeField] TextMeshProUGUI text;
-    
+    private Saver saver;
+
     List<Pos> mapPos;
     
     int randomValue;
@@ -34,18 +35,18 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
-        
         DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
 
         Instance = this;
 
-        if (MapSaver.mapPos.Count == 0)
+        saver = FindObjectOfType<Saver>();
+        if (saver.mapPos.Count == 0)
         {
             MakeNewMap();
         }
         else
         {
-            MakeMapbymapPos(MapSaver.mapPos);
+            MakeMapbymapPos(saver.mapPos);
         }
 
         SpawnLocation();
@@ -72,7 +73,7 @@ public class MapManager : MonoBehaviour
         // 5:1 / 4:2 / 3:3 / 2:4 / 1:5
         for (int i = 1; i <= 5; i++)
         {
-            // ÇöÀç À§Ä¡µé ÁöÁ¤
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             List<int> currentPos = new List<int>();
             for (int j = 0; j < mapPos.Count; j++)
             {
@@ -82,7 +83,7 @@ public class MapManager : MonoBehaviour
                 }
             }
 
-            //´ÙÀ½ À§Ä¡µé ÁöÁ¤
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             List<int> newPos;
             while (true)
             {
@@ -173,14 +174,14 @@ public class MapManager : MonoBehaviour
                 mapPos.Add(p);
             }
         }
-        // À§¾Æ·¡ 1.8 ±âº»
+        // ï¿½ï¿½ï¿½Æ·ï¿½ 1.8 ï¿½âº»
 
-        MapSaver.mapPos = mapPos;
+        saver.mapPos = mapPos;
         Pos pos = new Pos();
         pos.x = 0;
         pos.y = 3;
-        pos.name = "ÇöÀç À§Ä¡";
-        MapSaver.currentLevel = pos;
+        pos.name = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡";
+        saver.currentLevel = pos;
     }
 
     public void MakeMapbymapPos(List<Pos> mapPos)
@@ -208,19 +209,19 @@ public class MapManager : MonoBehaviour
                 DrawMap(pos, pos.name, restColor);
             }
         }
-        MapSaver.mapPos = mapPos;
+        saver.mapPos = mapPos;
     }
 
     public void SpawnLocation()
     {
-        Pos level = MapSaver.currentLevel;
+        Pos level = saver.currentLevel;
         Location loc = GameObject.Instantiate(locationobject, new Vector2((float)(2.4 * level.x - 7.2), (float)(1.8 * level.y - 5.4)), Quaternion.identity);
     }
     public void DrawMap(Pos pos, string name, Color color)
     {
         Vector3 vector = new Vector3((float)(pos.x * 2.4 - 7.2), (float)(pos.y * 1.8 - 5.4), 0);
         Map newmap = GameObject.Instantiate(mapobject, vector, Quaternion.identity);
-        newmap.Init(name, color);
+        newmap.Init(name, color, saver);
         newmap.pos = pos;
     }
 

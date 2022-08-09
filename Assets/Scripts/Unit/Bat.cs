@@ -7,11 +7,7 @@ public class Bat : Slime
     public override void Move(Stage stage){
         StartCoroutine(this._Move(stage));
     }
-    /*
-    public override void Attack(Stage stage){
-        StartCoroutine(this._Attack(stage));
-    }
-    */
+
     private IEnumerator _Move(Stage stage){
         movement = 5;
         Vector2 pp = stage.player.position;

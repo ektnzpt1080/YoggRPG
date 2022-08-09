@@ -20,4 +20,4 @@ MonoBehaviour:
   - Name: bat
     sprite: {fileID: 0}
     health: 30
-    strength: 9
+    strength: 12

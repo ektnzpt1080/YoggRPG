@@ -9,11 +9,13 @@ public class Map : MonoBehaviour
     public MapManager.Pos pos;
 
     [SerializeField] private SpriteRenderer _mapRenderer;
+    [SerializeField] private Saver _saver;
 
-    public void Init(string name, Color color)
+    public void Init(string name, Color color, Saver saver)
     {
         this.name = name;
         _mapRenderer.color = color;
+        _saver = saver;
     }
     
     public void OnMouseOver()
@@ -21,15 +23,15 @@ public class Map : MonoBehaviour
         MapManager.Instance.ShowText(this);
         if (Input.GetMouseButtonDown(0))
         {
-            if (this.pos.x == MapSaver.currentLevel.x + 1 && (this.pos.y >= MapSaver.currentLevel.y - 1 && this.pos.y <= MapSaver.currentLevel.y + 1))
+            if (this.pos.x == _saver.currentLevel.x + 1 && (this.pos.y >= _saver.currentLevel.y - 1 && this.pos.y <= _saver.currentLevel.y + 1))
             {
                 SceneManager.LoadScene("TestScene");
-                // ³ªÁß¿¡ ¹Ù²Ü°Í
-                MapSaver.currentLevel = this.pos;
+                // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ù²Ü°ï¿½
+                _saver.currentLevel = this.pos;
             }
             else
             {
-                print("ÀÌµ¿ ºÒ°¡!");
+                print("ï¿½Ìµï¿½ ï¿½Ò°ï¿½!");
             }
             
         }

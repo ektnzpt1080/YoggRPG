@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
     List<Spell> yl = new List<Spell>();
 
     [SerializeField] PlayerData playerdata;
-    
+    private Saver saver;
 
     private void Awake()
     {
+        saver = FindObjectOfType<Saver>();
         if (Instance != null && Instance != this) {
             Destroy(this);
             return;
