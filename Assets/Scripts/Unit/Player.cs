@@ -52,4 +52,16 @@ public class Player : MonoBehaviour
         shield = 0;
     }
 
+    public void Initialize(Player p){
+        maxHealth = p.maxHealth;
+        health = p.health;
+        strength = p.strength;
+        intelligence = p.intelligence;
+        shield = 0;
+    }
+
+    public void SynchroHP(Player p){
+        health = p.health;
+    }
+
 }

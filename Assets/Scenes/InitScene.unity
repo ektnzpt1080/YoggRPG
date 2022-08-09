@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404388986}
   - component: {fileID: 404388985}
+  - component: {fileID: 404388987}
   m_Layer: 0
   m_Name: Saver
   m_TagString: Untagged
@@ -152,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb0cd576e5c6c7479bc497b6555500f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 404388987}
+  playerdata: {fileID: 11400000, guid: b9ca757d070e3674f9d7dd55326d6cdd, type: 2}
 --- !u!4 &404388986
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +170,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &404388987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404388984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564182413e4d69449a5475368ce9009e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &550627039
 GameObject:
   m_ObjectHideFlags: 0

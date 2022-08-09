@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     List<Spell> yl = new List<Spell>();
 
     [SerializeField] PlayerData playerdata;
-    private Saver saver;
+    public Saver saver;
 
     private void Awake()
     {
@@ -30,34 +30,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
-        
-        cl.Add(new Poke());
-        cl.Add(new Poke());
-        cl.Add(new Step());
-        cl.Add(new Step());
-        cl.Add(new RunRunRun());
-        cl.Add(new Slash());
-        cl.Add(new Slash());
-        cl.Add(new RoundSlash());
-        cl.Add(new ShieldUp());
-        cl.Add(new ShieldUp());
-        cl.Add(new WoodShield());
-
-        yl.Add(new Poke());
-        yl.Add(new Poke());
-        yl.Add(new Step());
-        yl.Add(new Step());
-        yl.Add(new RunRunRun());
-        yl.Add(new Slash());
-        yl.Add(new Slash());
-        yl.Add(new RoundSlash());
-        yl.Add(new ShieldUp());
-        yl.Add(new ShieldUp());
-        yl.Add(new WoodShield());
-
-        CardManager.SetCardList(cl, yl);
+        CardManager.SetCardList(saver.cl, saver.yl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
-        stage_ex.player.Initialize(playerdata);
+        stage_ex.player.Initialize(saver.player);
         BattleManager.StartBattle(stage_ex);
     }
 

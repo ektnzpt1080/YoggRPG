@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class BattleManager : MonoBehaviour
 {
@@ -109,6 +111,13 @@ public class BattleManager : MonoBehaviour
             moveButtonText.text = "Move\nneed " + movementmana +" mana";
             if(mana < movementmana) moveButton.interactable = false;
             else moveButton.interactable = true;
+
+            //debug 용도
+            if(Input.GetKeyDown(KeyCode.C)){
+                GameManager.Instance.saver.player.SynchroHP(stage.player);
+                SceneManager.LoadScene("MapScene");    
+            }
+            
         }
     }
 
