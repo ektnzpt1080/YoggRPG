@@ -30,14 +30,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
-        cl.Add(CardManager.spelldata.spellinfo[0]);
-        cl.Add(CardManager.spelldata.spellinfo[1]);
-        cl.Add(CardManager.spelldata.spellinfo[2]);
-        cl.Add(CardManager.spelldata.spellinfo[3]);
-        cl.Add(CardManager.spelldata.spellinfo[4]);
+        cl = saver.cl;
+        yl = saver.yl;
 
         CardManager.SetCardList(cl, yl);
-        Stage stage_ex = GridManager.GenerateStage(7,7,2);
+        Stage stage_ex = GridManager.GenerateStage(7,7,5);
         stage_ex.player.Initialize(saver.player);
         BattleManager.StartBattle(stage_ex);
     }

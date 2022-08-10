@@ -9,8 +9,8 @@ public class Saver : MonoBehaviour
     //���� Ŭ����� �þ�� ��!!
     
     public List<MapManager.Pos> mapPos = new List<MapManager.Pos>();
-    public List<Spell> cl = new List<Spell>();
-    public List<Spell> yl = new List<Spell>();
+    [SerializeField] public List<SpellInfo> cl = new List<SpellInfo>();
+    [SerializeField] public List<SpellInfo> yl = new List<SpellInfo>();
     public Player player;
     [SerializeField] PlayerData playerdata;
 
@@ -32,26 +32,6 @@ public class Saver : MonoBehaviour
         }
         
         //Initialize Card Deck
-        cl.Add(new Poke());
-        cl.Add(new Poke());
-        cl.Add(new Step());
-        cl.Add(new Step());
-        cl.Add(new RunRunRun());
-        //cl.Add(new Slash());
-       // cl.Add(new Slash());
-        cl.Add(new RoundSlash());
-        cl.Add(new ShieldUp());
-        cl.Add(new ShieldUp());
-        cl.Add(new WoodShield());
-
-        yl.Add(new Poke());
-        yl.Add(new Poke());
-        //yl.Add(new Slash());
-        //yl.Add(new Slash());
-        yl.Add(new RoundSlash());
-        yl.Add(new ShieldUp());
-        yl.Add(new ShieldUp());
-        yl.Add(new WoodShield());
         
         //Initialize Player Data
         player.Initialize(playerdata);
@@ -63,8 +43,8 @@ public class Saver : MonoBehaviour
 
     }
 
-    public void AddCard(Spell spell, bool isCL){
-        List<Spell> list = isCL ? cl : yl;
+    public void AddCard(SpellInfo spell, bool isCL){
+        List<SpellInfo> list = isCL ? cl : yl;
         list.Add(spell);
     }
 
