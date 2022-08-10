@@ -29,8 +29,6 @@ public class BattleManager : MonoBehaviour
     int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
-
-
     State state;
     Stage stage;
     
@@ -48,7 +46,6 @@ public class BattleManager : MonoBehaviour
         mana = 3;
         movementmana = 1;
         enemyActing = false;
-
     }
 
     void Update(){
@@ -118,8 +115,7 @@ public class BattleManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.C)){
                 GameManager.Instance.saver.player.SynchroHP(stage.player);
                 SceneManager.LoadScene("MapScene");    
-            }
-            
+            }            
         }
     }
 

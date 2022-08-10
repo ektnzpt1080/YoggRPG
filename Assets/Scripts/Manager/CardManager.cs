@@ -20,6 +20,8 @@ public class CardManager : MonoBehaviour
     Card selectedCard;
     List<Vector2> PreDecisionRange;
 
+    bool cardlistOn = false;
+
     //카드매니저를 시작시킴
     public void SetCardList(List<SpellInfo> SpellList, List<SpellInfo> YoggSpellList){
         List<SpellInfo> cards = new List<SpellInfo>(SpellList);
@@ -306,6 +308,15 @@ public class CardManager : MonoBehaviour
         //디버그 용도
         if(Input.GetKeyDown(KeyCode.Alpha1)){
             DrawCard();
+        }
+
+        if(Input.GetKeyDown(KeyCode.V) && !cardlistOn){
+            GameManager.Instance.UIManager.TurnOnCardList(cardDeck);
+            cardlistOn = true;
+        }
+        else if(Input.GetKeyDown(KeyCode.V) && cardlistOn){
+            GameManager.Instance.UIManager.TurnOffCardList();
+            cardlistOn = false;
         }
         
     }

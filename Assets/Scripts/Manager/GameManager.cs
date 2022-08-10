@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GridManager GridManager { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public CardManager CardManager { get; private set; }
+    public UIManager UIManager { get; private set; }
+
     List<SpellInfo> cl = new List<SpellInfo>();
     List<SpellInfo> yl = new List<SpellInfo>();
 
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         GridManager = GetComponentInChildren<GridManager>();
         BattleManager = GetComponentInChildren<BattleManager>();
         CardManager = GetComponentInChildren<CardManager>();
+        UIManager = GetComponentInChildren<UIManager>();
     }
 
     private void Start(){
