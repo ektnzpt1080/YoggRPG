@@ -33,7 +33,5 @@ public class Poke : Spell
             }
         }
     }
-    public override void GetSpellInfo(){
-        spellinfo = GameManager.Instance.CardManager.getSpellInfo(102);
-    }
+
 }

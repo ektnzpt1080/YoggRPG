@@ -20,12 +20,9 @@ public class RoundSlash : Spell
         foreach (Vector2 v in Gridlib.Circle(stage, stage.player.position)){
             for(int i = stage.enemies.Count - 1 ; i >= 0; i--){
                 if(stage.enemies[i].position == v){
-                    stage.enemies[i].GetDamage(GetValue());//damage 나중에 바꿀것
+                    stage.enemies[i].GetDamage(GetValue());
                 }
             }
         }
-    }
-    public override void GetSpellInfo(){
-        spellinfo = GameManager.Instance.CardManager.getSpellInfo(103);
     }
 }

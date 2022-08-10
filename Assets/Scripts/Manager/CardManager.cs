@@ -278,7 +278,6 @@ public class CardManager : MonoBehaviour
             GameObject.Destroy(yoggInstCard.gameObject);
 
             //카드를 플레이함
-            spellinfo.spell.GetSpellInfo();
             Debug.Log("시전 " + (yogglist.IndexOf(spellinfo) + 1)+ " : " + spellinfo.name);
             List<Vector2> sl = spellinfo.spell.YoggDecision();
             if(sl == null){

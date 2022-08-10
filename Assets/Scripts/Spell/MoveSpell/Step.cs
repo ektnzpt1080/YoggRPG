@@ -25,9 +25,4 @@ public class Step : Spell
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         stage.player.Move(stage.tiles[selectedPos]);
     }
-    public override void GetSpellInfo(){
-        spellinfo = GameManager.Instance.CardManager.getSpellInfo(201);
-    }
 }
-
-//달려! 202

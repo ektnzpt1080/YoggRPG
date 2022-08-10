@@ -37,7 +37,6 @@ public class Card : MonoBehaviour
     //카드에 spell을 넣고, 준비시킴
     public void Copy(SpellInfo _spellinfo, CardType type){
         spellinfo = _spellinfo;
-        spellinfo.spell.GetSpellInfo();
         _name = _spellinfo.name;
         _cost = _spellinfo.cost;
         _text = _spellinfo.text;
@@ -71,17 +70,11 @@ public class Card : MonoBehaviour
         }
     }
 
-    public SpellInfo getSpell(){
-        return spellinfo;
-    }
-
     public void Update(){
-        _value = spellinfo.spell.GetValue();
+        spellinfo.GetValue();
         cardName.text = _name;
         cardCost.text = _cost.ToString();
-        cardText.text = _text.Replace("<V>", _value.ToString());
+        cardText.text = _text.Replace("<V>", spellinfo.spell.value.ToString());
     }
-
-    
 }
 

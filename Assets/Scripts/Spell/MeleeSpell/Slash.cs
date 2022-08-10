@@ -33,9 +33,7 @@ public class Slash : Spell
             }
         }
     }
-    public override void GetSpellInfo(){
-        spellinfo = GameManager.Instance.CardManager.getSpellInfo(101);
-    }
+
 
 
 }

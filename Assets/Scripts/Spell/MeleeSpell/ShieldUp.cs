@@ -17,7 +17,5 @@ public class ShieldUp : Spell
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         stage.player.shield += GetValue();
     }
-    public override void GetSpellInfo(){
-        spellinfo = GameManager.Instance.CardManager.getSpellInfo(104);
-    }
+
 }

@@ -16,6 +16,11 @@ public class SpellInfo
     public float intCoeff;
     public float healthCoeff;
     public Spell spell;
+    public int GetValue(){
+        Player p = GameManager.Instance.BattleManager.GetStage().player;
+        return spell.value = Mathf.FloorToInt(basic + strCoeff * p.strength + intCoeff * p.intelligence + healthCoeff * p.maxHealth);
+    }
+    
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SpellData", order = 3)]
