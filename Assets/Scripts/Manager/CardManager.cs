@@ -55,7 +55,7 @@ public class CardManager : MonoBehaviour
         }
         else{
             Card drawCard = GameObject.Instantiate(cardObject, deckTransform.position, Quaternion.identity);//덱에서 생성되게 할 것
-            drawCard.Copy(cardDeck[0].spell, Card.CardType.handCard);
+            drawCard.Copy(cardDeck[0], Card.CardType.handCard);
             cardHand.Add(drawCard);
             cardDeck.RemoveAt(0);
             CardHandAlliance();
@@ -163,7 +163,7 @@ public class CardManager : MonoBehaviour
 
     //고른 카드를 selectedCard에 넣고, 핸드에 있는 카드들을 밑으로 내림
     public void SelectCard(Card card){
-        PreDecisionRange = card.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
+        PreDecisionRange = card.spellinfo.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
         if(PreDecisionRange != null && PreDecisionRange.Count == 0){
             Debug.Log("No appropriate target on board");
             return;
@@ -208,12 +208,12 @@ public class CardManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
             //PreDecisionRange가 null, 이경우 아무 타일이나 누르면 발동함
             if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile_) && PreDecisionRange == null){
-                selectedCard.spell.Decision(Vector2.zero);
+                selectedCard.spellinfo.spell.Decision(Vector2.zero);
                 DiscardCard(selectedCard);
             }
             //적절한 타일을 고름
             else if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
-                selectedCard.spell.Decision(tile.position);
+                selectedCard.spellinfo.spell.Decision(tile.position);
                 DiscardCard(selectedCard);
             }
             //적절하지 않은 타일을 고름 
@@ -236,7 +236,7 @@ public class CardManager : MonoBehaviour
     void DiscardCard(Card card){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
         cardHand.Remove(card);
-        cardGrave.Add(card.spell.spellinfo);
+        cardGrave.Add(card.spellinfo);
         GameObject.Destroy(card.gameObject);
         CardHandAlliance();
     }
@@ -270,7 +270,7 @@ public class CardManager : MonoBehaviour
         foreach (SpellInfo spellinfo in yogglist){
             //카드를 생성시킴
             Card yoggInstCard = GameObject.Instantiate(cardObject, yoggInitTransform.position, Quaternion.identity);
-            yoggInstCard.Copy(spellinfo.spell, Card.CardType.yoggCard);
+            yoggInstCard.Copy(spellinfo, Card.CardType.yoggCard);
             float movetime = 0.5f;
             yoggInstCard.MoveTransform(new PRS(showCardTransform.position, Quaternion.identity, cardObject.transform.localScale * 1.8f), true, movetime);
             yield return new WaitForSeconds(movetime + 0.5f);

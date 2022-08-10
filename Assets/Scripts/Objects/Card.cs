@@ -13,7 +13,7 @@ public class Card : MonoBehaviour
     }
 
     CardType cardtype;
-    public Spell spell {get;set;}
+    public SpellInfo spellinfo {get;set;}
     [SerializeField] SpriteRenderer frontSpriteRenderer;
     [SerializeField] SpriteRenderer backSpriteRenderer;
     [SerializeField] List<TextMeshPro> textSpriteRenderer;
@@ -35,12 +35,12 @@ public class Card : MonoBehaviour
     }
     
     //카드에 spell을 넣고, 준비시킴
-    public void Copy(Spell _spell, CardType type){
-        spell = _spell;
-        spell.GetSpellInfo();
-        _name = spell.spellinfo.name;
-        _cost = spell.spellinfo.cost;
-        _text = spell.spellinfo.text;
+    public void Copy(SpellInfo _spellinfo, CardType type){
+        spellinfo = _spellinfo;
+        spellinfo.spell.GetSpellInfo();
+        _name = _spellinfo.name;
+        _cost = _spellinfo.cost;
+        _text = _spellinfo.text;
         cardtype = type;
     }
 
@@ -71,12 +71,12 @@ public class Card : MonoBehaviour
         }
     }
 
-    public Spell getSpell(){
-        return spell;
+    public SpellInfo getSpell(){
+        return spellinfo;
     }
 
     public void Update(){
-        _value = spell.GetValue();
+        _value = spellinfo.spell.GetValue();
         cardName.text = _name;
         cardCost.text = _cost.ToString();
         cardText.text = _text.Replace("<V>", _value.ToString());

@@ -34,7 +34,7 @@ MonoBehaviour:
     strCoeff: 0.8
     intCoeff: 0
     healthCoeff: 0
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: 3bf64f0162d2d364996f432be1a6fa49, type: 2}
   - name: "\uD68C\uC804\uBCA0\uAE30"
     identitynumber: 103
     sprite: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
     strCoeff: 1
     intCoeff: 0
     healthCoeff: 0
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: c043abd26859e1a46baa422cd666427a, type: 2}
   - name: "\uBC29\uD328\uC62C\uB9AC\uAE30"
     identitynumber: 104
     sprite: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
     strCoeff: 0
     intCoeff: 0
     healthCoeff: 0.1
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: 6a5da9fc1555e9f4a8bfecf9b6751b8c, type: 2}
   - name: "\uC2A4\uD15D"
     identitynumber: 201
     sprite: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
     strCoeff: 0
     intCoeff: 0
     healthCoeff: 0
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: edb1728e70554734b826de8a67a8779f, type: 2}
   - name: "\uB2EC\uB824!!"
     identitynumber: 202
     sprite: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
     strCoeff: 0
     intCoeff: 0
     healthCoeff: 0
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: 91715c594dd32b34eac8baa521329d92, type: 2}
   - name: "\uB098\uBB34\uC7A5\uBCBD"
     identitynumber: 301
     sprite: {fileID: 0}
@@ -84,4 +84,4 @@ MonoBehaviour:
     strCoeff: 0
     intCoeff: 1.5
     healthCoeff: 0
-    spell: {fileID: 0}
+    spell: {fileID: 11400000, guid: ae4e52afb4bf69b48a96faead3e45cba, type: 2}

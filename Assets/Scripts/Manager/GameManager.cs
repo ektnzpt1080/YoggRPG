@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
     private void Start(){
         cl.Add(CardManager.spelldata.spellinfo[0]);
         cl.Add(CardManager.spelldata.spellinfo[1]);
-        cl.Add(CardManager.spelldata.spellinfo[0]);
-        cl.Add(CardManager.spelldata.spellinfo[0]);
-        cl.Add(CardManager.spelldata.spellinfo[0]);
+        cl.Add(CardManager.spelldata.spellinfo[2]);
+        cl.Add(CardManager.spelldata.spellinfo[3]);
+        cl.Add(CardManager.spelldata.spellinfo[4]);
 
         CardManager.SetCardList(cl, yl);
         Stage stage_ex = GridManager.GenerateStage(7,7,2);
