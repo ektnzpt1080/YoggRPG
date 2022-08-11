@@ -10,13 +10,18 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Enemy enemy, enemy2;
     Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
     [SerializeField] private EnemyData enemydata;
+    
+    [SerializeField] private GameObject moveButton, endButton, yoggButton;
+    [SerializeField] private List<GameObject> buttonList;
+    
 
     public Stage GenerateStage(int w, int h, int e){
         //나중에 enemy를 List로 받아서 만들게 할것
         GenerateGrid(w,h);
         
-        Player pb = Instantiate(player, new Vector3(3,3,-1), Quaternion.identity);        
-        pb.position = new Vector2 (3,3);
+
+        Player pb = Instantiate(player, new Vector3(w/2,1,-1), Quaternion.identity);        
+        pb.position = new Vector2 (w/2,1);
         
         List<Vector2> assignedPositions = new List<Vector2>();
         assignedPositions.Add(pb.position);
@@ -25,8 +30,8 @@ public class GridManager : MonoBehaviour
         Vector2 assignPos;
         for (int i = 0; i < e ; i++){
             do{
-                int x = Random.Range(0,7);
-                int y = Random.Range(0,7);
+                int x = Random.Range(0,w);
+                int y = Random.Range(4,h);
                 assignPos = new Vector2(x, y);
             } while(assignedPositions.Contains(assignPos));
             Enemy spawnedEnemy = Instantiate(enemy2, new Vector3(assignPos.x,assignPos.y,-1), Quaternion.identity);
@@ -35,6 +40,8 @@ public class GridManager : MonoBehaviour
             assignedPositions.Add(assignPos);
             assignedEnemies.Add(spawnedEnemy);
         }
+
+
 
         return new Stage(new Vector2 (w,h), pb, assignedEnemies, tiles);
 
@@ -52,12 +59,22 @@ public class GridManager : MonoBehaviour
                 tiles.Add(new Vector2(x,y), spawnedTile);
             }
         }
+        
+        buttonList.Add(Instantiate(moveButton, tiles[new Vector2(0,0)].transform.position + new Vector3(-2.5f,0.5f,0), Quaternion.identity));
+        buttonList.Add(Instantiate(endButton, tiles[new Vector2(w-1,0)].transform.position + new Vector3(2.5f,0.5f,0), Quaternion.identity));
+        buttonList.Add(Instantiate(yoggButton, tiles[new Vector2(w-1,0)].transform.position + new Vector3(2.5f,2.0f,0), Quaternion.identity));
+
         cam.transform.position = new Vector3(w/2, h/2 - 1, -10);
+        
         //카메라 위치, 크기 조정 필요
     }
 
     public Tile FindTile(Vector2 pos){
         return tiles[pos];
+    }
+
+    public List<GameObject> GetButtonList(){
+        return buttonList;
     }
 
 }

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         yl = saver.yl;
 
         CardManager.SetCardList(cl, yl);
-        Stage stage_ex = GridManager.GenerateStage(7,7,5);
+        Stage stage_ex = GridManager.GenerateStage(9,9,2);
         stage_ex.player.Initialize(saver.player);
         BattleManager.StartBattle(stage_ex);
     }

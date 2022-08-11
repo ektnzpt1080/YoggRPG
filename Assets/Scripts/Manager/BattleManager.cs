@@ -34,9 +34,12 @@ public class BattleManager : MonoBehaviour
     
     public DamageText damageText;
 
+    [SerializeField] Collider2D moveButton, turnEndButton, yoggCallingButton;
+    [SerializeField] TextMeshPro moveButtonText, turnEndButtonText, yoggCallingButtonText;
+    
+
     [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
-    [SerializeField] Button moveButton;
-    [SerializeField] TextMeshProUGUI moveButtonText;
+
     
         //스테이지 배틀 시작
     public void StartBattle(Stage s){
@@ -46,6 +49,13 @@ public class BattleManager : MonoBehaviour
         mana = 3;
         movementmana = 1;
         enemyActing = false;
+        
+        moveButton = GameManager.Instance.GridManager.GetButtonList()[0].GetComponent<Collider2D>();
+        turnEndButton = GameManager.Instance.GridManager.GetButtonList()[1].GetComponent<Collider2D>();
+        yoggCallingButton = GameManager.Instance.GridManager.GetButtonList()[2].GetComponent<Collider2D>();
+        moveButtonText = moveButton.GetComponentInChildren<TextMeshPro>();
+        turnEndButtonText = turnEndButton.GetComponentInChildren<TextMeshPro>();
+        yoggCallingButtonText = yoggCallingButton.GetComponentInChildren<TextMeshPro>();
     }
 
     void Update(){
@@ -53,6 +63,7 @@ public class BattleManager : MonoBehaviour
             switch (state){
                 //Battle이 시작하는 state, 바로 MoveState로 간다
                 case State.startBattleState :
+                    GameManager.Instance.GridManager.
                     StartCoroutine(_EnemyMoveStart(stage));
                     state = State.EnemyMoveState;
                     break;
@@ -64,7 +75,7 @@ public class BattleManager : MonoBehaviour
                 //카드를 고르거나 move 버튼을 누를 수 있음, 혹은 턴 엔드
                 case State.selectBehaviourState :
                     GameManager.Instance.CardManager.PickCard();
-                    EndPlayerTurn();
+                    ClickButton();
                     break;
                 //move 버튼을 눌렀을 시, 움직일 범위를 선택 할 수 있음
                 case State.pickMoveState :
@@ -107,26 +118,11 @@ public class BattleManager : MonoBehaviour
             hptext.text = "Health : " + stage.player.health + "/" + stage.player.maxHealth;
             shieldtext.text = "Shield : " + stage.player.shield;
 
-            moveButtonText.text = "Move\nneed " + movementmana +" mana";
-            if(mana < movementmana) moveButton.interactable = false;
-            else moveButton.interactable = true;
-
             //debug 용도
             if(Input.GetKeyDown(KeyCode.C)){
                 GameManager.Instance.saver.player.SynchroHP(stage.player);
                 SceneManager.LoadScene("MapScene");    
             }            
-        }
-    }
-
-    //Player Turn End or Call Yogg
-    public void EndPlayerTurn(){
-        if(Input.GetKeyDown(KeyCode.Z)){
-            SwitchState(State.EnemyAttackState);
-            //나중에 EndTurnState로 바꾸고 턴종료시에 하는 일들을 해야 됨
-        }
-        if(Input.GetKeyDown(KeyCode.X)){
-            SwitchState(State.YoggCallingState);
         }
     }
 
@@ -187,14 +183,25 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    //MoveButton이 눌렸을 시 호출, 갈 수 있는 위치를 표시
-    public void ClickMoveButton(){
-        if (mana >= movementmana && state == State.selectBehaviourState){
-            foreach(Vector2 pos in Gridlib.CanReach(stage, stage.player.position, 1)){
-                stage.tiles[pos].Highlight();
+    //Button이 눌렸을 시의 동작
+    public void ClickButton(){
+        if (Input.GetMouseButtonDown(0)){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
+            if(hit.collider == moveButton  && mana >= movementmana) {
+                foreach(Vector2 pos in Gridlib.CanReach(stage, stage.player.position, 1)){
+                    stage.tiles[pos].Highlight();
+                }
+                SwitchState(State.pickMoveState);
             }
-            SwitchState(State.pickMoveState);
+            else if(hit.collider == turnEndButton){
+                SwitchState(State.EnemyAttackState);
+            }
+            else if(hit.collider == yoggCallingButton){
+                SwitchState(State.YoggCallingState);
+            }
         }
+        
     }
 
     //누른 위치로 player를 이동시킴
