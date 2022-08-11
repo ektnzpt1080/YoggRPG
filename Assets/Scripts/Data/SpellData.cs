@@ -15,7 +15,9 @@ public class SpellInfo
     public float strCoeff;
     public float intCoeff;
     public float healthCoeff;
+    public int rarity; // 0 - 기본, 1 - 동, 2 - 은, 3 - 금, 4 - 요그 전용
     public Spell spell;
+
     public int GetValue(){
         Player p = GameManager.Instance.BattleManager.GetStage().player;
         return spell.value = Mathf.FloorToInt(basic + strCoeff * p.strength + intCoeff * p.intelligence + healthCoeff * p.maxHealth);
@@ -38,6 +40,14 @@ public class SpellData : ScriptableObject
         }
         return result;
     }
+
+    public List<SpellInfo> GetSpellsWithRare(int rare){
+        List<SpellInfo> result = new List<SpellInfo>();
+        for(int i =  0; i < spellinfo.Length; i++){
+            if(spellinfo[i].rarity == rare) {
+                result.Add(spellinfo[i]);
+            }
+        }
+        return result;
+    }
 }
-
-

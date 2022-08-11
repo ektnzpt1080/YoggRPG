@@ -318,6 +318,10 @@ public class CardManager : MonoBehaviour
             GameManager.Instance.UIManager.TurnOffCardList();
             cardlistOn = false;
         }
+
+        if(Input.GetKeyDown(KeyCode.B)){
+            GameManager.Instance.UIManager.TurnOnCardRewardCanvas();
+        }
         
     }
 
