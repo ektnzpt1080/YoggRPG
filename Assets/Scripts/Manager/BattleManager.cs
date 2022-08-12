@@ -21,6 +21,8 @@ public class BattleManager : MonoBehaviour
         EndTurnEffectState,
         EnemyAttackState,
         EnemyMoveState,
+        GameOverEnemyDead,
+        GameOverPlayerDead
     }
 
     bool isBattle;//battle이 시작되었는지
@@ -30,18 +32,17 @@ public class BattleManager : MonoBehaviour
     int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
-    State state;
+    [SerializeField] State state;
     Stage stage;
     
     public DamageText damageText;
 
     [SerializeField] Collider2D moveButton, turnEndButton, yoggCallingButton;
     [SerializeField] TextMeshPro moveButtonText, turnEndButtonText, yoggCallingButtonText;
-    
-
     [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
-
+    [SerializeField] TextMeshProUGUI gameovertext;
     
+
     //스테이지 배틀 시작
     public void StartBattle(Stage s){
         isBattle = true;
@@ -119,11 +120,29 @@ public class BattleManager : MonoBehaviour
                 //상대 턴 이동 상태, 적절한 곳으로 이동하고, 공격을 예고함
                 case State.EnemyMoveState :
                     break;
+                //게임클리어 상태
+                case State.GameOverEnemyDead :
+                    if(switched){
+                        switched = false;
+                        GameManager.Instance.UIManager.TurnOnCardRewardCanvas();
+                    }
+                    break;
+                //게임오버 상태
+                case State.GameOverPlayerDead :
+                    if(switched){
+                        
+                        switched = false;
+                        gameovertext.gameObject.SetActive(true);
+                    }
+                    if(Input.GetKeyDown(KeyCode.R)){
+                        SceneManager.LoadScene("Init");
+                    }
+                    break;
                 default :
                     break;
             }
             
-
+            
             //Mana UI
             manatext.text = "Mana : " + mana + "/" + maxmana;
             hptext.text = "Health : " + stage.player.health + "/" + stage.player.maxHealth;
@@ -159,11 +178,13 @@ public class BattleManager : MonoBehaviour
     //Player Dead
     public void EndStagePlayerDead(){
         Debug.Log("Player dead");
+        SwitchState(State.GameOverPlayerDead);
     }
 
     //Enemy All Dead
     public void EndStageEnemyDead(){
         Debug.Log("Enemy All Dead");
+        SwitchState(State.GameOverEnemyDead);
     }
     
     //모든 Enemy가 Attack하게 함
@@ -249,7 +270,9 @@ public class BattleManager : MonoBehaviour
             SwitchState(State.pickCardState);
         }
         else{
-            SwitchState(State.selectBehaviourState);
+            if(state == State.pickCardState) {
+                SwitchState(State.selectBehaviourState);
+            }
         }
     }
 
@@ -298,5 +321,5 @@ public class BattleManager : MonoBehaviour
         state = s;
         switched = true;    
     }
-    
+
 }

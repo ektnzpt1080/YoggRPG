@@ -261,9 +261,7 @@ public class CardManager : MonoBehaviour
             if(card.spellinfo.spell.GetType().IsSubclassOf(typeof(RevolverSpell))){
                 Debug.Log("RevolverSpell Effect activate");
             }
-            
         }
-        
     }
 
     //카드를 모두 파괴시킴, 턴종료시
@@ -338,7 +336,6 @@ public class CardManager : MonoBehaviour
 
 
     void Update(){ 
-
         if(Input.GetKeyDown(KeyCode.Z) && !cardlistOn){
             GameManager.Instance.UIManager.TurnOnCardList(cardDeck);
             cardlistOn = true;

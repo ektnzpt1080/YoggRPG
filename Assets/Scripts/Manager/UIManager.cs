@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] LayoutGroup layoutgroup;
     List<CardUI> cards;
 
-    public RewardCanvas RewardCanvas;
+    [SerializeField] RewardCanvas RewardCanvas;
 
     // SpellInfo List를 받고 Card들을 생성시킴 
     public void TurnOnCardList(List<SpellInfo> sList){
@@ -18,7 +18,8 @@ public class UIManager : MonoBehaviour
         CardCanvas.gameObject.SetActive(true);
         foreach (SpellInfo spellinfo in sList){
             CardUI c = Instantiate(cardUI, layoutgroup.transform);
-            c.Copy(spellinfo);
+            c.Copy(spellinfo, CardUI.CardUIType.deck);
+            c.SetRewardCanvas(RewardCanvas);
             c.UpdateCard();
             cards.Add(c);
         }

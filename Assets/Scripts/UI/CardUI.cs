@@ -10,16 +10,25 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
 {
     public SpellInfo spellinfo {get;set;}
 
+    public enum CardUIType{
+        deck,
+        reward,
+        yoggReward
+    }
+    public CardUIType type;
+    public RewardCanvas rc;
+
     protected string _name, _text;
     protected int _cost, _value;
 
     [SerializeField] public TextMeshProUGUI cardName, cardText, cardCost;
 
-    public void Copy(SpellInfo _spellinfo){
+    public void Copy(SpellInfo _spellinfo, CardUIType _type){
         spellinfo = _spellinfo;
         _name = _spellinfo.name;
         _cost = _spellinfo.cost;
         _text = _spellinfo.text;
+        type = _type;
     }
 
     // Update is called once per frame
@@ -31,7 +40,12 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         cardText.text = _text.Replace("<V>", spellinfo.spell.value.ToString());
     }
 
+    public void SetRewardCanvas(RewardCanvas r){
+        rc = r;
+    }
+
     public void OnPointerClick(PointerEventData eventData){
-        
+        Debug.Log("fdjaklfjkl");
+        if(type == CardUIType.reward) rc.PickReward(this);
     }
 }

@@ -43,8 +43,8 @@ public class Saver : MonoBehaviour
 
     }
 
-    public void AddCard(SpellInfo spell, bool isCL){
-        List<SpellInfo> list = isCL ? cl : yl;
+    public void AddCard(SpellInfo spell, bool isCardList){
+        List<SpellInfo> list = isCardList ? cl : yl;
         list.Add(spell);
     }
 
