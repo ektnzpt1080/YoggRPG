@@ -21,8 +21,8 @@ public class Card : MonoBehaviour
     public PRS originPRS {get;set;}
     public int originOrder {get;set;}
     
-    string _name, _text;
-    int _cost, _value;
+    public string _name, _text;
+    public int _cost, _value;
     
     [SerializeField] public TextMeshPro cardName, cardText, cardCost;
 

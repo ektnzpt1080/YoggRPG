@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         BattleManager.StartBattle(stage_ex);
     }
 
+
     
 
 }

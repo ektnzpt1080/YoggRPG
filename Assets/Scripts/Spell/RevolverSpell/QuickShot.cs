@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Spell/QuickShot")]
 public class QuickShot : RevolverSpell
 {
     public override List<Vector2> PreDecision(){

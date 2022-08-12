@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
         playCardState,
         YoggCallingState,
         EndTurnState,
+        EndTurnEffectState,
         EnemyAttackState,
         EnemyMoveState,
     }
@@ -25,7 +26,7 @@ public class BattleManager : MonoBehaviour
     bool isBattle;//battle이 시작되었는지
     bool enemyActing;//enmey가 행동중
     bool switched;//state가 바뀌었는지, 스테이트가 바뀌고 한번만 호출 되야 하는 것들이 있어서 만듦, 별로 좋은 방법은 아닌거 같아서 바꾸고 싶긴 함. 
-    int mana; //마나
+    public int mana {get;set;} //마나
     int maxmana; //맥스 마나
     int movementmana; // 이동하는데 필요한 마나, 덱을 섞으면 1로 초기화 됨
     
@@ -41,12 +42,13 @@ public class BattleManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
 
     
-        //스테이지 배틀 시작
+    //스테이지 배틀 시작
     public void StartBattle(Stage s){
         isBattle = true;
         SwitchState(State.startBattleState);
         stage = s;
-        mana = 3;
+        maxmana = 3;
+        mana = maxmana;
         movementmana = 1;
         enemyActing = false;
         
@@ -65,12 +67,14 @@ public class BattleManager : MonoBehaviour
                 case State.startBattleState :
                     GameManager.Instance.GridManager.
                     StartCoroutine(_EnemyMoveStart(stage));
-                    state = State.EnemyMoveState;
+                    SwitchState(State.EnemyMoveState);
                     break;
                 //드로우 하는 state
                 case State.drawCardState :
-                    GameManager.Instance.CardManager.DrawCard();
-                    state = State.selectBehaviourState;
+                    for(int i = 0 ; i < 5; i++){
+                        GameManager.Instance.CardManager.DrawCard();
+                    }
+                    SwitchState(State.selectBehaviourState);
                     break;
                 //카드를 고르거나 move 버튼을 누를 수 있음, 혹은 턴 엔드
                 case State.selectBehaviourState :
@@ -88,15 +92,22 @@ public class BattleManager : MonoBehaviour
                 //카드 애니메이션 재생
                 case State.playCardState :
                     break;
-                //요그사론 공격등이 나감
+                //요그사론 호출 버튼을 누름
                 case State.YoggCallingState :
+                    GameManager.Instance.CardManager.DiscardAllCard();
                     if(switched){
                         switched = false;
                         StartCoroutine(GameManager.Instance.CardManager.PlayYogg());
                     }
                     break;
-                //턴 종료
+                //턴 종료 버튼을 누름
                 case State.EndTurnState :
+                    GameManager.Instance.CardManager.DiscardAllCard();
+                    SwitchState(State.EndTurnEffectState);
+                    break;
+                //턴 종료시 일어나는 일들을 처리함
+                case State.EndTurnEffectState :
+                    SwitchState(State.EnemyAttackState);
                     break;
                 //상대 턴 공격 상태, 지정된 범위를 공격함
                 case State.EnemyAttackState :
@@ -114,28 +125,34 @@ public class BattleManager : MonoBehaviour
             
 
             //Mana UI
-            manatext.text = "Mana : " + mana + "/3";
+            manatext.text = "Mana : " + mana + "/" + maxmana;
             hptext.text = "Health : " + stage.player.health + "/" + stage.player.maxHealth;
             shieldtext.text = "Shield : " + stage.player.shield;
+
+            //moveButton
+            moveButtonText.text = "Move\nneed " + movementmana +" mana";
 
             //debug 용도
             if(Input.GetKeyDown(KeyCode.C)){
                 GameManager.Instance.saver.player.SynchroHP(stage.player);
-                SceneManager.LoadScene("MapScene");    
-            }            
+                SceneManager.LoadScene("MapScene");
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha1)){
+                mana += 1;
+            }
         }
     }
 
     //YoggEnd()
     public void YoggEnd(){
-        SwitchState(State.EnemyAttackState);
+        SwitchState(State.EndTurnEffectState);
         //나중에 EndTurnState로 바꿀것
     }
 
     //Enemy Turn End
     public void EndEnemyTurn(){
         SwitchState(State.drawCardState);
-        mana = 3;
+        mana = maxmana;
         stage.player.shield = 0;
     }
 
@@ -195,7 +212,7 @@ public class BattleManager : MonoBehaviour
                 SwitchState(State.pickMoveState);
             }
             else if(hit.collider == turnEndButton){
-                SwitchState(State.EnemyAttackState);
+                SwitchState(State.EndTurnState);
             }
             else if(hit.collider == yoggCallingButton){
                 SwitchState(State.YoggCallingState);
@@ -250,6 +267,19 @@ public class BattleManager : MonoBehaviour
                 stage.tiles[v].targetTile(active);
             }
         }
+    }
+
+    public void SpendMana(int i){
+        mana -= i;
+    }
+
+    public void GainMana(int i){
+        mana += i;
+    }
+
+    //다음턴에 마나를 얻음 TODO
+    public void NextTurnGainMana(int i){
+
     }
 
     public void InitializeMovementMana(){

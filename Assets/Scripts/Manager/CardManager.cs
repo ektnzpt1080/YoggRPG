@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
     public List<SpellInfo> cardYogg {get;set;} // 요그사론의 카드
     public List<Card> cardHand {get;set;} // 핸드의 카드, 이쪽은 진짜 카드로 관리됨
     [SerializeField] Card cardObject;
-    [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform;
+    [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform, graveTransform;
     [SerializeField] Transform yoggInitTransform, showCardTransform;
     [SerializeField] public SpellData spelldata;
 
@@ -163,6 +163,25 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //카드를 고름
+    public void PickCard(){
+        if((Input.GetMouseButtonDown(0)) && !selected){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity); //나중에 타일 레이어로 바꿔야 될수도 있음
+            if(hit.collider != null && hit.collider.TryGetComponent<Card>(out Card card)){
+                if(card._cost > GameManager.Instance.BattleManager.mana){
+                    Debug.Log("Not Enough mana");
+                }
+                else{
+                    SelectCard(card);
+                    GameManager.Instance.BattleManager.Select(selected);
+                }
+                
+            }
+        }
+        
+    }
+
     //고른 카드를 selectedCard에 넣고, 핸드에 있는 카드들을 밑으로 내림
     public void SelectCard(Card card){
         PreDecisionRange = card.spellinfo.spell.PreDecision(); //predecisionrange에 누를 수 있는 범위를 넣음
@@ -190,19 +209,6 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    //카드를 고름
-    public void PickCard(){
-        if((Input.GetMouseButtonDown(0)) && !selected){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity); //나중에 타일 레이어로 바꿔야 될수도 있음
-            if(hit.collider != null && hit.collider.TryGetComponent<Card>(out Card card)){
-                SelectCard(card);
-                GameManager.Instance.BattleManager.Select(selected);
-            }
-        }
-        
-    }
-
     //카드를 플레이함
     public void PlayCard(){
         if((Input.GetMouseButtonDown(0)) && selected){
@@ -211,12 +217,14 @@ public class CardManager : MonoBehaviour
             //PreDecisionRange가 null, 이경우 아무 타일이나 누르면 발동함
             if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile_) && PreDecisionRange == null){
                 selectedCard.spellinfo.spell.Decision(Vector2.zero);
-                DiscardCard(selectedCard);
+                DiscardCard(selectedCard, 0);
+                GameManager.Instance.BattleManager.SpendMana(selectedCard._cost);
             }
             //적절한 타일을 고름
             else if(hit.collider != null && hit.collider.TryGetComponent<Tile>(out Tile tile) && PreDecisionRange.Contains(tile.position)){
                 selectedCard.spellinfo.spell.Decision(tile.position);
-                DiscardCard(selectedCard);
+                DiscardCard(selectedCard, 0);
+                GameManager.Instance.BattleManager.SpendMana(selectedCard._cost);
             }
             //적절하지 않은 타일을 고름 
             else{
@@ -235,16 +243,39 @@ public class CardManager : MonoBehaviour
     }
 
     //카드를 버림
-    void DiscardCard(Card card){
+    //0 - 사용됨, 1 - 턴이 끝나서 버림, 2 - 카드효과로 버려짐
+    public void DiscardCard(Card card, int type){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
         cardHand.Remove(card);
         cardGrave.Add(card.spellinfo);
-        GameObject.Destroy(card.gameObject);
-        CardHandAlliance();
+        if(type == 0){
+            GameObject.Destroy(card.gameObject);
+            CardHandAlliance();
+        }
+        else if(type == 1){
+            PRS prs = new (graveTransform.position, Quaternion.identity, card.transform.localScale);
+            card.MoveTransform(prs, true, 0.4f);
+            GameObject.Destroy(card.gameObject, 0.5f);
+        }
+        else if(type == 2){
+            if(card.spellinfo.spell.GetType().IsSubclassOf(typeof(RevolverSpell))){
+                Debug.Log("RevolverSpell Effect activate");
+            }
+            
+        }
+        
+    }
+
+    //카드를 모두 파괴시킴, 턴종료시
+    public void DiscardAllCard(){
+        int count = cardHand.Count;
+        for(int i = 0 ; i < count ; i++){
+            DiscardCard(cardHand[0], 1);
+        }
     }
 
     //카드를 무덤에서 덱으로 다시 섞음
-    void ShuffleCard(){
+    public void ShuffleCard(){
         int count = cardGrave.Count;
         for(int i = 0; i < count; i++){
             int j = Random.Range(0, cardGrave.Count);
@@ -304,26 +335,22 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void Update(){ 
-        //디버그 용도
-        if(Input.GetKeyDown(KeyCode.Alpha1)){
-            DrawCard();
-        }
 
-        if(Input.GetKeyDown(KeyCode.V) && !cardlistOn){
+
+    void Update(){ 
+
+        if(Input.GetKeyDown(KeyCode.Z) && !cardlistOn){
             GameManager.Instance.UIManager.TurnOnCardList(cardDeck);
             cardlistOn = true;
         }
-        else if(Input.GetKeyDown(KeyCode.V) && cardlistOn){
+        else if(Input.GetKeyDown(KeyCode.Z) && cardlistOn){
             GameManager.Instance.UIManager.TurnOffCardList();
             cardlistOn = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.B)){
+        if(Input.GetKeyDown(KeyCode.X)){
             GameManager.Instance.UIManager.TurnOnCardRewardCanvas();
         }
         
     }
-
-
 }
