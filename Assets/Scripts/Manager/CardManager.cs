@@ -20,7 +20,8 @@ public class CardManager : MonoBehaviour
     Card selectedCard;
     List<Vector2> PreDecisionRange;
 
-    bool cardlistOn = false;
+    bool isCardListOn = false;
+    bool isCardInteractable = true; //카드와 상호작용이 되는지
 
     //카드매니저를 시작시킴
     public void SetCardList(List<SpellInfo> SpellList, List<SpellInfo> YoggSpellList){
@@ -124,7 +125,7 @@ public class CardManager : MonoBehaviour
 
     //카드에 마우스를 올려 카드 사이즈를 바꿈
     public void ChangeCardSize(Card card, bool isLarge){
-        if(!selected){
+        if(!selected && isCardInteractable && !isCardListOn){
             if(isLarge){
                 Vector3 enlargePos = new Vector3(card.originPRS.position.x, -0.7f, -3f);
                 card.transform.DOKill();
@@ -299,6 +300,9 @@ public class CardManager : MonoBehaviour
         }
         
         foreach (SpellInfo spellinfo in yogglist){
+            if(GameManager.Instance.BattleManager.isGameOver()){
+                break;
+            }
             //카드를 생성시킴
             Card yoggInstCard = GameObject.Instantiate(cardObject, yoggInitTransform.position, Quaternion.identity);
             yoggInstCard.Copy(spellinfo, Card.CardType.yoggCard);
@@ -322,31 +326,26 @@ public class CardManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.2f);
         }
-        GameManager.Instance.BattleManager.YoggEnd();
-        yield break;
-
+        if(!GameManager.Instance.BattleManager.isGameOver()){
+            GameManager.Instance.BattleManager.YoggEnd();
+        }
         // 나중에 yoggCounter = 0;
     }
 
-    public SpellInfo getSpellInfo(int i){
-        return spelldata.FindSpell(i);
+    public void SetCardInteractable(bool b){
+        isCardInteractable = b;
     }
 
-
-
-
     void Update(){ 
-        if(Input.GetKeyDown(KeyCode.Z) && !cardlistOn){
+        if(Input.GetKeyDown(KeyCode.Z) && !isCardListOn){
             GameManager.Instance.UIManager.TurnOnCardList(cardDeck);
-            cardlistOn = true;
+            SetCardInteractable(false);
+            isCardListOn = true;
         }
-        else if(Input.GetKeyDown(KeyCode.Z) && cardlistOn){
+        else if(Input.GetKeyDown(KeyCode.Z) && isCardListOn){
             GameManager.Instance.UIManager.TurnOffCardList();
-            cardlistOn = false;
-        }
-
-        if(Input.GetKeyDown(KeyCode.X)){
-            GameManager.Instance.UIManager.TurnOnCardRewardCanvas();
+            SetCardInteractable(true);
+            isCardListOn = false;
         }
         
     }

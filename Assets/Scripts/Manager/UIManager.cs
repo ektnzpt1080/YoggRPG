@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void TurnOnCardRewardCanvas(){
+        GameManager.Instance.CardManager.SetCardInteractable(false);
         RewardCanvas.gameObject.SetActive(true);
         RewardCanvas.RandomReward();
     }

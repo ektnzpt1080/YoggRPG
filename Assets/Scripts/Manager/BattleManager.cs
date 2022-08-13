@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
 
-    enum State{
+    public enum State{
         startBattleState,
         drawCardState,
         selectBehaviourState,
@@ -311,6 +311,14 @@ public class BattleManager : MonoBehaviour
 
     public Stage GetStage(){
         return stage;
+    }
+
+    public State getState(){
+        return state;
+    }
+
+    public bool isGameOver(){
+        return state == State.GameOverEnemyDead || state == State.GameOverPlayerDead;
     }
 
     public void EndEnemyAct(){

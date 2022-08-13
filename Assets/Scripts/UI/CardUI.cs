@@ -45,7 +45,6 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     }
 
     public void OnPointerClick(PointerEventData eventData){
-        Debug.Log("fdjaklfjkl");
         if(type == CardUIType.reward) rc.PickReward(this);
     }
 }

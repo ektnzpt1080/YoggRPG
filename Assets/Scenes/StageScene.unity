@@ -1628,7 +1628,7 @@ GameObject:
   - component: {fileID: 681712237}
   - component: {fileID: 681712236}
   m_Layer: 5
-  m_Name: RewardListCanvas
+  m_Name: RewardCardCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
