@@ -42,12 +42,22 @@ public class RewardCanvas : MonoBehaviour, IPointerClickHandler
     public void PickReward(CardUI cu){
         if(!isRewardPicked){
             GameManager.Instance.saver.AddCard(cu.spellinfo, true);
+            Debug.Log("Reward " + deckReward.IndexOf(cu) + " picked");
             switch(deckReward.IndexOf(cu)) {
                 case 0 :
+                    for(int i = 0; i < 3; i++){
+                        GameManager.Instance.saver.AddCard(deckRewardYogg[i].spellinfo, false);
+                    }
                     break;
                 case 1 : 
+                    for(int i = 0; i < 3; i++){
+                        GameManager.Instance.saver.AddCard(deckRewardYogg[i+3].spellinfo, false);
+                    }
                     break;
                 case 2 :
+                    for(int i = 0; i < 3; i++){
+                        GameManager.Instance.saver.AddCard(deckRewardYogg[i+6].spellinfo, false);
+                    }
                     break;
                 default :
                     break;
@@ -61,9 +71,11 @@ public class RewardCanvas : MonoBehaviour, IPointerClickHandler
         Debug.Log(eventdata.pointerPressRaycast.gameObject.name);
         if(eventdata.pointerPressRaycast.gameObject == skipButton){
             isRewardPicked = true;
+            Debug.Log("Skipped the reward");
         }
         else if(eventdata.pointerPressRaycast.gameObject == nextStageButton && isRewardPicked){
-            Debug.Log("nextstage");
+            GameManager.Instance.saver.player.SynchroHP(GameManager.Instance.BattleManager.GetStage().player);
+            SceneManager.LoadScene("MapScene");
         }
     }
 

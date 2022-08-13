@@ -28,7 +28,7 @@ public class Saver : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         
         //Initialize Card Deck

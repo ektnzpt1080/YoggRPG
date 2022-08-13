@@ -2747,7 +2747,7 @@ MonoBehaviour:
     intCoeff: 0
     healthCoeff: 0
     rarity: 0
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+    spell: {fileID: 11400000, guid: c043abd26859e1a46baa422cd666427a, type: 2}
   yl:
   - name: "\uBCA0\uAE30"
     identitynumber: 101
