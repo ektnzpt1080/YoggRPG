@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 
-public class RewardCanvas : MonoBehaviour, IPointerClickHandler
+public class RewardCardCanvas : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] List<CardUI> deckReward;
     [SerializeField] List<CardSmallUI> deckRewardYogg;
     [SerializeField] GameObject skipButton;
-    [SerializeField] GameObject nextStageButton;
+    [SerializeField] GameObject confirmButton;
     [SerializeField] SpellData sd;
 
     bool isRewardPicked;
@@ -67,15 +67,15 @@ public class RewardCanvas : MonoBehaviour, IPointerClickHandler
 
     }
 
+
     public void OnPointerClick(PointerEventData eventdata){
-        Debug.Log(eventdata.pointerPressRaycast.gameObject.name);
         if(eventdata.pointerPressRaycast.gameObject == skipButton){
             isRewardPicked = true;
             Debug.Log("Skipped the reward");
         }
-        else if(eventdata.pointerPressRaycast.gameObject == nextStageButton && isRewardPicked){
-            GameManager.Instance.saver.player.SynchroHP(GameManager.Instance.BattleManager.GetStage().player);
-            SceneManager.LoadScene("MapScene");
+        
+        else if(eventdata.pointerPressRaycast.gameObject == confirmButton && isRewardPicked){
+            this.gameObject.SetActive(false);
         }
     }
 

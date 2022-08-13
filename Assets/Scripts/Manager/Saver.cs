@@ -13,7 +13,8 @@ public class Saver : MonoBehaviour
     [SerializeField] public List<SpellInfo> yl = new List<SpellInfo>();
     public Player player;
     [SerializeField] PlayerData playerdata;
-
+    [SerializeField] int gold;
+    
 
 //저장해야 할것
 //요그덱, 카드덱, Player HP, Player 장비(지금은 힘과 지능)
@@ -46,6 +47,10 @@ public class Saver : MonoBehaviour
     public void AddCard(SpellInfo spell, bool isCardList){
         List<SpellInfo> list = isCardList ? cl : yl;
         list.Add(spell);
+    }
+
+    public void AddGold(int _gold){
+        gold += _gold;
     }
 
 }

@@ -124,7 +124,7 @@ public class BattleManager : MonoBehaviour
                 case State.GameOverEnemyDead :
                     if(switched){
                         switched = false;
-                        GameManager.Instance.UIManager.TurnOnCardRewardCanvas();
+                        GameManager.Instance.UIManager.TurnOnRewardCanvas();
                     }
                     break;
                 //게임오버 상태

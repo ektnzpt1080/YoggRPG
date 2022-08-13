@@ -16,7 +16,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         yoggReward
     }
     public CardUIType type;
-    public RewardCanvas rc;
+    public RewardCardCanvas rcc;
 
     protected string _name, _text;
     protected int _cost, _value;
@@ -40,11 +40,11 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         cardText.text = _text.Replace("<V>", spellinfo.spell.value.ToString());
     }
 
-    public void SetRewardCanvas(RewardCanvas r){
-        rc = r;
+    public void SetRewardCanvas(RewardCardCanvas r){
+        rcc = r;
     }
 
     public void OnPointerClick(PointerEventData eventData){
-        if(type == CardUIType.reward) rc.PickReward(this);
+        if(type == CardUIType.reward) rcc.PickReward(this);
     }
 }
