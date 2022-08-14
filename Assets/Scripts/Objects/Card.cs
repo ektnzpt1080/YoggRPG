@@ -15,7 +15,6 @@ public class Card : MonoBehaviour
     CardType cardtype;
     public SpellInfo spellinfo {get;set;}
     [SerializeField] SpriteRenderer frontSpriteRenderer;
-    [SerializeField] SpriteRenderer backSpriteRenderer;
     [SerializeField] List<TextMeshPro> textSpriteRenderer;
     
     public PRS originPRS {get;set;}
@@ -31,7 +30,6 @@ public class Card : MonoBehaviour
             t.sortingOrder = order * 10 + 1;
         }
         frontSpriteRenderer.sortingOrder = order * 10;
-        backSpriteRenderer.sortingOrder = order * 10 - 1;
     }
     
     //카드에 spell을 넣고, 준비시킴

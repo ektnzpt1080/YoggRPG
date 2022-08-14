@@ -159,6 +159,9 @@ public class BattleManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1)){
                 mana += 1;
             }
+            if(Input.GetKeyDown(KeyCode.Alpha2)){
+                GameManager.Instance.CardManager.DrawCard();
+            }
         }
     }
 
