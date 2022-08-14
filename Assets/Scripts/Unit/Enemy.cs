@@ -21,7 +21,11 @@ public abstract class Enemy : MonoBehaviour
         else Debug.Log("enemy get damage");
     }
 
-    public abstract void Init(EnemyInfo enemyInfo);
+    public void Init(EnemyInfo ei){
+        health = ei.health;
+        strength = ei.strength;
+    }
+    
     public abstract void Move(Stage stage);
     public abstract void Attack(Stage stage);
 

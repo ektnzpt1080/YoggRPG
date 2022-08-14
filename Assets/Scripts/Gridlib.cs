@@ -31,6 +31,7 @@ public class Gridlib
     /// <summary>
     /// stage에서 startpoint에서 endpoint로 가는 경로를 normalized Vector2의 List 형태로 반환
     /// 장애물을 고려함
+    /// 갈 수 없으면 null을 리턴
     /// </summary>
     public static List<Vector2> FindWay(Stage stage, Vector2 startpoint, Vector2 endpoint){
         List <Vector2> lastVisitedPoints = new List<Vector2>();
@@ -57,7 +58,7 @@ public class Gridlib
         }
 
         List<Vector2> result = new List<Vector2>();
-        if(!way.ContainsKey(endpoint)) return result; // 갈수 없으면 빈 리스트를 return
+        if(!way.ContainsKey(endpoint)) return null; // 갈수 없으면 null을 return
         Vector2 _endpoint = endpoint;
         while(_endpoint != startpoint){
             result.Add(way[_endpoint]);

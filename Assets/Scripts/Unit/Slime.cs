@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class Slime : Enemy
 {
-
-    protected int movement; //3번 움직일 수 있음
-
-    //두 칸 4방향으로 움직이고 공격
-    //공격 후 턴이 종료됨
-    public override void Init(EnemyInfo ei){
-        health = ei.health;
-        strength = ei.strength;
-        //나중에 맵에 따라서 자동으로 성장하도록 만들 것
-    }
-
     public override void Move(Stage stage){
         StartCoroutine(this._Move(stage));
     }
@@ -24,7 +13,7 @@ public class Slime : Enemy
     }
     
     private IEnumerator _Move(Stage stage){
-        movement = 3;
+        int movement = 3;
         List<Vector2> way = Gridlib.FindWay(stage,position,stage.player.position);
         attackRange = new List<Vector2>();
         for(int i = 0; i < movement; i++){    
