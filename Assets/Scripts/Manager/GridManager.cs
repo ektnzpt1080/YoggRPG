@@ -41,8 +41,6 @@ public class GridManager : MonoBehaviour
             assignedEnemies.Add(spawnedEnemy);
         }
 
-
-
         return new Stage(new Vector2 (w,h), pb, assignedEnemies, tiles);
 
     }

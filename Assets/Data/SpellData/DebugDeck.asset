@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f90a0e152d573544b2025c4943f2dd3, type: 3}
+  m_Name: DebugDeck
+  m_EditorClassIdentifier: 
+  spellinfo:
+  - name: "\uD035\uC0F7"
+    identitynumber: 701
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
+      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
+      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+  - name: "\uD035\uC0F7"
+    identitynumber: 701
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
+      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
+      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+  - name: "\uD035\uC0F7"
+    identitynumber: 701
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
+      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
+      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+  - name: "\uD035\uC0F7"
+    identitynumber: 701
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
+      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
+      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+  - name: "\uD035\uC0F7"
+    identitynumber: 701
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
+      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
+      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
+      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
+      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
+  - name: "\uD328\uB2DD"
+    identitynumber: 702
+    sprite: {fileID: 0}
+    text: "\uD328"
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: a5e7357898fc7fb4c8ed7d6fc13fa5ae, type: 2}
+  - name: "\uD328\uB2DD"
+    identitynumber: 702
+    sprite: {fileID: 0}
+    text: "\uD328"
+    cost: 1
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 1
+    spell: {fileID: 11400000, guid: a5e7357898fc7fb4c8ed7d6fc13fa5ae, type: 2}
+  - name: "\uBCA0\uAE30"
+    identitynumber: 101
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
+      \uC90D\uB2C8\uB2E4."
+    cost: 1
+    basic: 0
+    strCoeff: 1.1
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 0
+    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}
+  - name: "\uBCA0\uAE30"
+    identitynumber: 101
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
+      \uC90D\uB2C8\uB2E4."
+    cost: 1
+    basic: 0
+    strCoeff: 1.1
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 0
+    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}
+  - name: "\uBCA0\uAE30"
+    identitynumber: 101
+    sprite: {fileID: 0}
+    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
+      \uC90D\uB2C8\uB2E4."
+    cost: 1
+    basic: 0
+    strCoeff: 1.1
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 0
+    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}

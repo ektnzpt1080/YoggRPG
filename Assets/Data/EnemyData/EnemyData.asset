@@ -21,3 +21,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
     health: 30
     strength: 12
+  - Name: golem
+    sprite: {fileID: 0}
+    health: 30
+    strength: 12

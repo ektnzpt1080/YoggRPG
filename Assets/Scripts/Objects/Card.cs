@@ -9,7 +9,6 @@ public class Card : MonoBehaviour
     public enum CardType{
         handCard = 0,
         yoggCard = 1,
-        rewardCard = 2
     }
 
     CardType cardtype;
@@ -23,6 +22,8 @@ public class Card : MonoBehaviour
     public string _name, _text;
     public int _cost, _value;
     
+    public bool mouseInteractable {get;set;}
+
     [SerializeField] public TextMeshPro cardName, cardText, cardCost;
 
     public void Ordering(int order){
@@ -39,6 +40,7 @@ public class Card : MonoBehaviour
         _cost = _spellinfo.cost;
         _text = _spellinfo.text;
         cardtype = type;
+        if(type == CardType.handCard) SetMouseInteractable(true);
     }
 
     public void OnMouseOver(){
@@ -66,6 +68,10 @@ public class Card : MonoBehaviour
             transform.rotation = prs.rotation;
             transform.localScale = prs.scale;
         }
+    }
+
+    public void SetMouseInteractable(bool isInteractable){
+        mouseInteractable = isInteractable;
     }
 
     public void Update(){

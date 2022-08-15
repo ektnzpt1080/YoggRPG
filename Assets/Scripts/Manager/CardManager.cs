@@ -247,8 +247,10 @@ public class CardManager : MonoBehaviour
     //0 - 사용됨, 1 - 턴이 끝나서 버림, 2 - 카드효과로 버려짐
     public void DiscardCard(Card card, int type){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
+        card.SetMouseInteractable(false);
         cardHand.Remove(card);
         cardGrave.Add(card.spellinfo);
+        
         if(type == 0){
             GameObject.Destroy(card.gameObject);
             CardHandAlliance();
@@ -259,7 +261,11 @@ public class CardManager : MonoBehaviour
             GameObject.Destroy(card.gameObject, 0.5f);
         }
         else if(type == 2){
+            PRS prs = new (graveTransform.position, Quaternion.identity, card.transform.localScale);
+            card.MoveTransform(prs, true, 0.4f);
+            GameObject.Destroy(card.gameObject, 0.5f);
             if(card.spellinfo.spell.GetType().IsSubclassOf(typeof(RevolverSpell))){
+                ((RevolverSpell)card.spellinfo.spell).Discarded();
                 Debug.Log("RevolverSpell Effect activate");
             }
         }
@@ -334,6 +340,25 @@ public class CardManager : MonoBehaviour
 
     public void SetCardInteractable(bool b){
         isCardInteractable = b;
+    }
+
+    //핸드에서 randomCard 하나를 뽑음. Selected가 true면 SelectedCard를 제외하고 가져옴
+    public Card GetRandomCard(){
+        if(cardHand.Count == 0) return null;
+        if(cardHand.Count == 1 && selected) return null;
+        Card result = null;
+        while(result == null){
+            int i = Random.Range(0,cardHand.Count);
+            if(selected && cardHand[i] == selectedCard){
+                continue;
+            }
+            else result = cardHand[i];
+        }
+        return result;
+    }
+
+    public Card GetSelectedCard(){
+        return selectedCard;
     }
 
     void Update(){ 
