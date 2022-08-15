@@ -68,6 +68,7 @@ public class Bat : Enemy
                 }
             }
         }
+        
         attackRange = new List<Vector2>();
         List<Vector2> pos4 = new List<Vector2>();
         foreach(Vector2 v in way4){
