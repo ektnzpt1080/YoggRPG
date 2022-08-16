@@ -76,7 +76,7 @@ public class CardManager : MonoBehaviour
             Debug.Log("Hand is full, Can't make Card");
         }
         else{
-            Card makeCard = GameObject.Instantiate(cardObject, leftCardTransform.position, Quaternion.identity);
+            Card makeCard = GameObject.Instantiate(cardObject, yoggInitTransform.position, Quaternion.identity);
             makeCard.Copy(s, Card.CardType.handCard);
             cardHand.Add(makeCard);
             CardHandAlliance();
@@ -281,7 +281,7 @@ public class CardManager : MonoBehaviour
         }
         else if(type == 2){
             Sequence s = DOTween.Sequence()
-            .Append(card.transform.DOMove(card.transform.position + Vector3.up * 2f, 0.4f))
+            .Append(card.transform.DOMove(card.transform.position + Vector3.up * 4f, 0.4f))
             .AppendInterval(0.2f)
             .Append(card.transform.DOMove(graveTransform.position, 0.4f))
             .Join(card.transform.DORotate(Vector3.zero, 0.4f))
