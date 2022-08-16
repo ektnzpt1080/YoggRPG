@@ -18,7 +18,7 @@ public abstract class Enemy : MonoBehaviour
             GameManager.Instance.BattleManager.RemoveEnemy(this);
             Destroy(this.gameObject);
         }
-        else Debug.Log("enemy get damage");
+        else Debug.Log(this.name + " get damage : " + damage);
     }
 
     public void Init(EnemyInfo ei){

@@ -2687,81 +2687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cl:
-  - name: "\uD035\uC0F7"
-    identitynumber: 701
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
-      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
-      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
-      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
-      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
-    cost: 1
-    basic: 2
-    strCoeff: 0.5
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 1
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
-  - name: "\uD035\uC0F7"
-    identitynumber: 701
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
-      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
-      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
-      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
-      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
-    cost: 1
-    basic: 2
-    strCoeff: 0.5
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 1
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
-  - name: "\uD035\uC0F7"
-    identitynumber: 701
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
-      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
-      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
-      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
-      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
-    cost: 1
-    basic: 2
-    strCoeff: 0.5
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 1
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
-  - name: "\uD035\uC0F7"
-    identitynumber: 701
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
-      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
-      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
-      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
-      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
-    cost: 1
-    basic: 2
-    strCoeff: 0.5
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 1
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
-  - name: "\uD035\uC0F7"
-    identitynumber: 701
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 \uD55C \uBC29\uD5A5\uC73C\uB85C <V>
-      \uD53C\uD574\uB97C \uC8FC\uB294 \uCD1D\uC54C\uB97C \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
-      \uCE74\uB4DC 1\uC7A5\uC744 \uBB34\uC791\uC704\uB85C \uBC84\uB9BD\uB2C8\uB2E4.\\n\uD0C4\uD658
-      : \uC808\uBC18\uC758 \uD53C\uD574\uB97C \uC785\uD788\uB294 \uCD1D\uC54C\uC744
-      \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
-    cost: 1
-    basic: 2
-    strCoeff: 0.5
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 1
-    spell: {fileID: 11400000, guid: c80f7fe8347584a418ebc6dcf4514bc1, type: 2}
   - name: "\uD328\uB2DD"
     identitynumber: 702
     sprite: {fileID: 0}
@@ -2806,6 +2731,61 @@ MonoBehaviour:
     healthCoeff: 0
     rarity: 3
     spell: {fileID: 11400000, guid: 91715c594dd32b34eac8baa521329d92, type: 2}
+  - name: "\uB2EC\uB824"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: 91715c594dd32b34eac8baa521329d92, type: 2}
+  - name: "\uB7F0\uC564\uAC74"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 1
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: 799e7160c0bf14e449d3e4ef84230123, type: 2}
+  - name: "\uB9AC\uB85C\uB4DC"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: 5326e5034c82ec44889191b5c1f75572, type: 2}
+  - name: "\uC36C\uB354"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 1
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: 2d548911b68f5214a8d731e492334c02, type: 2}
+  - name: "\uC36C\uB354\uC2A4\uD1B0"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 0
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: b7fa3ed33b342bc4b9b7a336441f793e, type: 2}
   yl:
   - name: "\uBCA0\uAE30"
     identitynumber: 101

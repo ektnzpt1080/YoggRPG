@@ -6,6 +6,8 @@ using UnityEngine;
 public class RunAndGun : RevolverSpell
 {
     public override List<Vector2> PreDecision(){
+        Card card = GameManager.Instance.CardManager.GetRandomCard();
+        GameManager.Instance.CardManager.DiscardCard(card, 2);
         Stage stage = GameManager.Instance.BattleManager.GetStage();
         List<Vector2> result = new List<Vector2>();
         List<Vector2> candidate = Gridlib.WayStraightBlockable(stage, stage.player.position, false, 2);
