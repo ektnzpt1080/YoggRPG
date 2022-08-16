@@ -118,3 +118,14 @@ MonoBehaviour:
     healthCoeff: 0
     rarity: 1
     spell: {fileID: 11400000, guid: a5e7357898fc7fb4c8ed7d6fc13fa5ae, type: 2}
+  - name: "\uB370\uB4DC\uC544\uC774"
+    identitynumber: 703
+    sprite: {fileID: 0}
+    text: "\uB370\uB4DC"
+    cost: 6
+    basic: 2
+    strCoeff: 1.4
+    intCoeff: 0
+    healthCoeff: 0
+    rarity: 3
+    spell: {fileID: 11400000, guid: b0b3f22844ba6694996f2342f424a2b6, type: 2}

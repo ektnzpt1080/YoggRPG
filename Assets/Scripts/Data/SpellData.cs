@@ -22,6 +22,10 @@ public class SpellInfo
         Player p = GameManager.Instance.BattleManager.GetStage().player;
         return spell.value = Mathf.FloorToInt(basic + strCoeff * p.strength + intCoeff * p.intelligence + healthCoeff * p.maxHealth);
     }
+
+    public SpellInfo Clone(){
+        return (SpellInfo)this.MemberwiseClone();
+    }
     
 }
 

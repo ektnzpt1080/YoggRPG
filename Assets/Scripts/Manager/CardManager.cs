@@ -18,6 +18,7 @@ public class CardManager : MonoBehaviour
     int yoggCounter = 5; // 이후 카드를 사용할때 마다 사용되는 것으로 바꿀 것
     [SerializeField] bool selected;
     Card selectedCard;
+    public SpellInfo discardedSpell {get;set;}
     List<Vector2> PreDecisionRange;
 
     bool isCardListOn = false;
@@ -25,7 +26,11 @@ public class CardManager : MonoBehaviour
 
     //카드매니저를 시작시킴
     public void SetCardList(List<SpellInfo> SpellList, List<SpellInfo> YoggSpellList){
-        List<SpellInfo> cards = new List<SpellInfo>(SpellList);
+        List<SpellInfo> cards = new List<SpellInfo> ();
+        foreach (SpellInfo s in SpellList){
+            cards.Add(s.Clone());
+        }
+
         List<SpellInfo> shuffled = new List<SpellInfo>();
         cardHand = new List<Card>();
         cardGrave = new List<SpellInfo>();
@@ -64,6 +69,20 @@ public class CardManager : MonoBehaviour
             CardHandAlliance();
         }
     }
+
+    //카드를 생성 시킴
+    public void MakeCard(SpellInfo s){
+        if(cardHand.Count >= maxCardCount){
+            Debug.Log("Hand is full, Can't make Card");
+        }
+        else{
+            Card makeCard = GameObject.Instantiate(cardObject, leftCardTransform.position, Quaternion.identity);
+            makeCard.Copy(s, Card.CardType.handCard);
+            cardHand.Add(makeCard);
+            CardHandAlliance();
+        }
+    }
+
 
     //카드를 정렬시킴 r은 원의 반지름, moveTime은 움직이는 시간
     public void CardHandAlliance(float r = 22.97f, float moveTime = 0.7f){
@@ -261,9 +280,15 @@ public class CardManager : MonoBehaviour
             GameObject.Destroy(card.gameObject, 0.5f);
         }
         else if(type == 2){
-            PRS prs = new (graveTransform.position, Quaternion.identity, card.transform.localScale);
-            card.MoveTransform(prs, true, 0.4f);
-            GameObject.Destroy(card.gameObject, 0.5f);
+            Sequence s = DOTween.Sequence()
+            .Append(card.transform.DOMove(card.transform.position + Vector3.up * 2f, 0.4f))
+            .AppendInterval(0.2f)
+            .Append(card.transform.DOMove(graveTransform.position, 0.4f))
+            .Join(card.transform.DORotate(Vector3.zero, 0.4f))
+            .Play();
+            GameObject.Destroy(card.gameObject, s.Duration() + 0.1f);
+
+            discardedSpell = card.spellinfo;
             if(card.spellinfo.spell.GetType().IsSubclassOf(typeof(RevolverSpell))){
                 ((RevolverSpell)card.spellinfo.spell).Discarded();
                 Debug.Log("RevolverSpell Effect activate");

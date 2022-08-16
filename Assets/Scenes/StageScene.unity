@@ -2784,42 +2784,28 @@ MonoBehaviour:
     healthCoeff: 0
     rarity: 1
     spell: {fileID: 11400000, guid: a5e7357898fc7fb4c8ed7d6fc13fa5ae, type: 2}
-  - name: "\uBCA0\uAE30"
-    identitynumber: 101
+  - name: "\uB370\uB4DC\uC544\uC774"
+    identitynumber: 703
     sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
-      \uC90D\uB2C8\uB2E4."
-    cost: 1
-    basic: 0
-    strCoeff: 1.1
+    text: "\uB370\uB4DC"
+    cost: 6
+    basic: 2
+    strCoeff: 1.4
     intCoeff: 0
     healthCoeff: 0
-    rarity: 0
-    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}
-  - name: "\uBCA0\uAE30"
-    identitynumber: 101
+    rarity: 3
+    spell: {fileID: 11400000, guid: b0b3f22844ba6694996f2342f424a2b6, type: 2}
+  - name: "\uB2EC\uB824"
+    identitynumber: 703
     sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
-      \uC90D\uB2C8\uB2E4."
-    cost: 1
-    basic: 0
-    strCoeff: 1.1
+    text: "\uB370\uB4DC"
+    cost: 0
+    basic: 2
+    strCoeff: 1.4
     intCoeff: 0
     healthCoeff: 0
-    rarity: 0
-    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}
-  - name: "\uBCA0\uAE30"
-    identitynumber: 101
-    sprite: {fileID: 0}
-    text: "\uC8FC\uBCC0 4\uBC29\uD5A5 \uC911 1\uCE78\uC5D0 <V> \uD53C\uD574\uB97C
-      \uC90D\uB2C8\uB2E4."
-    cost: 1
-    basic: 0
-    strCoeff: 1.1
-    intCoeff: 0
-    healthCoeff: 0
-    rarity: 0
-    spell: {fileID: 11400000, guid: 3375d86c3eb4a3d468de2aae73939724, type: 2}
+    rarity: 3
+    spell: {fileID: 11400000, guid: 91715c594dd32b34eac8baa521329d92, type: 2}
   yl:
   - name: "\uBCA0\uAE30"
     identitynumber: 101
