@@ -21,10 +21,12 @@ public class Thunder : Spell
     public void RandomTargeting(int _Count){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         List<Vector2> targets = new List<Vector2>();
+        bool repeatable = (Mathf.FloorToInt(stage.size.x) - 1) * (Mathf.FloorToInt(stage.size.y) - 1) <= _Count;
+
         while(targets.Count < _Count) {
             int x = Random.Range(0, Mathf.FloorToInt(stage.size.x) - 1);
             int y = Random.Range(0, Mathf.FloorToInt(stage.size.y) - 1);
-            if(!targets.Contains(new Vector2(x, y))) targets.Add(new Vector2(x, y));
+            if(!targets.Contains(new Vector2(x, y)) || repeatable) targets.Add(new Vector2(x, y));
         }
 
         foreach(Vector2 v in targets){
