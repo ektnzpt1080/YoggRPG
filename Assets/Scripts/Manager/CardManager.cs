@@ -271,6 +271,7 @@ public class CardManager : MonoBehaviour
         cardGrave.Add(card.spellinfo);
         
         if(type == 0){
+            card.transform.DOKill();
             GameObject.Destroy(card.gameObject);
             CardHandAlliance();
         }

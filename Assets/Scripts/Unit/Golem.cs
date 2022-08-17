@@ -77,7 +77,7 @@ public class Golem : Enemy
     private IEnumerator _Attack(Stage stage){
         int damage = strength; // 나중에 바꿀것
         if(attackRange.Contains(stage.player.position)){
-            stage.player.GetDamage(damage);
+            stage.player.GetDamage(damage, this);
         }
         GameManager.Instance.BattleManager.EndEnemyAct();
         yield break;

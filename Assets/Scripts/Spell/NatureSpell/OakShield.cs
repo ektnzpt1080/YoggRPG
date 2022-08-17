@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Spell/WoodShield")]
-//나무장벽 301
-public class WoodShield : Spell
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Spell/OakShield")]
+public class OakShield : Spell
 {
     public override List<Vector2> PreDecision(){
         return null;
@@ -16,7 +14,7 @@ public class WoodShield : Spell
     public override void Decision(Vector2 selectedPos){
         Stage stage = GameManager.Instance.BattleManager.GetStage();        
         stage.player.shield += GetValue();
-        stage.player.spike += 3;
+        stage.player.spike += 7;
     }
 
 }

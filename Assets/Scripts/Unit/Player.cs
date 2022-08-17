@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] public int strength { get; set;}
     [SerializeField] public int intelligence { get; set;}
     [SerializeField] public int shield { get; set;}
+    [SerializeField] public int spike { get; set;}
     
-    public void GetDamage(int d){
+    public void GetDamage(int d, Enemy e){
         string s;
         if(shield == 0){
             health -= d;
@@ -30,12 +31,18 @@ public class Player : MonoBehaviour
         DamageText dt = Instantiate(GameManager.Instance.BattleManager.damageText, this.transform.position, Quaternion.identity);
         dt.Initialize(s, 0.5f);
 
+        //Player Get damage
         Debug.Log("Player Get Damaged : -" + d);
         if(health <= 0 ){
             health = 0;
             GameManager.Instance.BattleManager.EndStagePlayerDead();
+            return;
         }
 
+        //reflection Damage
+        if(spike > 0){
+            e.GetDamage(spike);
+        }
 
     }
 
@@ -49,7 +56,6 @@ public class Player : MonoBehaviour
         health = pd.health;
         strength = pd.strength;
         intelligence = pd.intelligence;
-        shield = 0;
     }
 
     public void Initialize(Player p){
@@ -58,6 +64,7 @@ public class Player : MonoBehaviour
         strength = p.strength;
         intelligence = p.intelligence;
         shield = 0;
+        spike = 0;
     }
 
     public void SynchroHP(Player p){

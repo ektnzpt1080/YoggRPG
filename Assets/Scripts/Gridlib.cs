@@ -89,8 +89,19 @@ public class Gridlib
     /// <summary>
     /// position의 1서클 주변 좌표들을 List<Vector2>의 형태로 반환
     /// </summary>
-    public static List<Vector2> Circle(Stage stage, Vector2 position){
-        return WayStraight(stage, position, true, 1);
+    public static List<Vector2> Circle(Stage stage, Vector2 position, int distance = 1){
+        if(distance == 1) return WayStraight(stage, position, true, 1);
+        else{
+            List<Vector2> result = new List<Vector2>();
+            result.AddRange(Circle(stage,position,distance-1));
+            for(int i = 0; i < 2 * distance ; i++){
+                Gridlib.InRange(stage, position + new Vector2(distance, distance - i));
+                Gridlib.InRange(stage, position + new Vector2(distance - i, -distance));
+                Gridlib.InRange(stage, position + new Vector2(-distance, i - distance));
+                Gridlib.InRange(stage, position + new Vector2(i - distance, distance));
+            }
+            return result;
+        }
     }
 
     /// <summary>

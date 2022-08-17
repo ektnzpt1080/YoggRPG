@@ -2709,7 +2709,7 @@ MonoBehaviour:
     healthCoeff: 0
     rarity: 3
     spell: {fileID: 11400000, guid: 91715c594dd32b34eac8baa521329d92, type: 2}
-  - name: "\uC36C\uB354"
+  - name: "\uAC00\uC2DC\uB098\uBB34"
     identitynumber: 703
     sprite: {fileID: 0}
     text: "\uB370\uB4DC"
@@ -2719,8 +2719,8 @@ MonoBehaviour:
     intCoeff: 0
     healthCoeff: 0
     rarity: 3
-    spell: {fileID: 11400000, guid: 2d548911b68f5214a8d731e492334c02, type: 2}
-  - name: "\uC36C\uB354\uC2A4\uD1B0"
+    spell: {fileID: 11400000, guid: ff6594362d6a9084a847a27c3097cbf6, type: 2}
+  - name: "\uCC38\uB098\uBB34\uBC29\uC5B4\uC220"
     identitynumber: 703
     sprite: {fileID: 0}
     text: "\uB370\uB4DC"
@@ -2730,8 +2730,8 @@ MonoBehaviour:
     intCoeff: 0
     healthCoeff: 0
     rarity: 3
-    spell: {fileID: 11400000, guid: b7fa3ed33b342bc4b9b7a336441f793e, type: 2}
-  - name: "\uC5F0\uC1C4\uBC88\uAC1C"
+    spell: {fileID: 11400000, guid: ba7a8539dba5a0c4d92ffbc860a0ae85, type: 2}
+  - name: "\uB098\uBB34\uBC29\uD328"
     identitynumber: 703
     sprite: {fileID: 0}
     text: "\uB370\uB4DC"
@@ -2741,7 +2741,7 @@ MonoBehaviour:
     intCoeff: 0
     healthCoeff: 0
     rarity: 3
-    spell: {fileID: 11400000, guid: 250ba89e2614c064bb24dee1f7163be4, type: 2}
+    spell: {fileID: 11400000, guid: ae4e52afb4bf69b48a96faead3e45cba, type: 2}
   - name: "\uBC88\uAC1C"
     identitynumber: 703
     sprite: {fileID: 0}

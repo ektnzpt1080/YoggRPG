@@ -192,15 +192,18 @@ public class BattleManager : MonoBehaviour
     
     //모든 Enemy가 Attack하게 함
     private IEnumerator _EnemyAttackStart(Stage stage){
-        foreach(Enemy enemy in stage.enemies){
+        for(int i = stage.enemies.Count - 1; i >= 0; i--){
             enemyActing = true;
-            enemy.Attack(stage);
+            stage.enemies[i].Attack(stage);
             while(enemyActing){
                 yield return null;
             }
         }
-        SwitchState(State.EnemyMoveState);
-        StartCoroutine(_EnemyMoveStart(stage));
+
+        if(!isGameOver()) {
+            SwitchState(State.EnemyMoveState);
+            StartCoroutine(_EnemyMoveStart(stage));
+        }
     }
     
     //모든 Enemy가 Move하게 함
