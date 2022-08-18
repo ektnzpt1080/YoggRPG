@@ -14,6 +14,7 @@ public class Card : MonoBehaviour
     CardType cardtype;
     public SpellInfo spellinfo {get;set;}
     [SerializeField] SpriteRenderer frontSpriteRenderer;
+    [SerializeField] SpriteRenderer spellSpriteRenderer;
     [SerializeField] List<TextMeshPro> textSpriteRenderer;
     
     public PRS originPRS {get;set;}
@@ -21,7 +22,6 @@ public class Card : MonoBehaviour
     
     public string _name, _text;
     public int _cost, _value;
-    
     public bool mouseInteractable {get;set;}
 
     [SerializeField] public TextMeshPro cardName, cardText, cardCost;
@@ -30,6 +30,7 @@ public class Card : MonoBehaviour
         foreach(TextMeshPro t in textSpriteRenderer){
             t.sortingOrder = order * 10 + 1;
         }
+        spellSpriteRenderer.sortingOrder = order * 10 + 1;
         frontSpriteRenderer.sortingOrder = order * 10;
     }
     
