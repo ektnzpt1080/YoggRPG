@@ -93,12 +93,12 @@ public class Gridlib
         if(distance == 1) return WayStraight(stage, position, true, 1);
         else{
             List<Vector2> result = new List<Vector2>();
-            result.AddRange(Circle(stage,position,distance-1));
+            result.AddRange(Circle(stage, position, distance-1));
             for(int i = 0; i < 2 * distance ; i++){
-                Gridlib.InRange(stage, position + new Vector2(distance, distance - i));
-                Gridlib.InRange(stage, position + new Vector2(distance - i, -distance));
-                Gridlib.InRange(stage, position + new Vector2(-distance, i - distance));
-                Gridlib.InRange(stage, position + new Vector2(i - distance, distance));
+                if(Gridlib.InRange(stage, position + new Vector2(distance, distance - i))) result.Add(position + new Vector2(distance, distance - i));
+                if(Gridlib.InRange(stage, position + new Vector2(distance - i, -distance))) result.Add(position + new Vector2(distance - i, -distance));
+                if(Gridlib.InRange(stage, position + new Vector2(-distance, i - distance))) result.Add(position + new Vector2(-distance, i - distance));
+                if(Gridlib.InRange(stage, position + new Vector2(i - distance, distance))) result.Add(position + new Vector2(i - distance, distance));
             }
             return result;
         }

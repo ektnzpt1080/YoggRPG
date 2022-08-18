@@ -531,6 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frontSpriteRenderer: {fileID: 5997477932072732134}
+  spellSpriteRenderer: {fileID: 2075391259994479018}
   textSpriteRenderer:
   - {fileID: 3189552303210960593}
   - {fileID: 8828918602216407421}

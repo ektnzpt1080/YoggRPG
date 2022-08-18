@@ -22,6 +22,7 @@ public class Card : MonoBehaviour
     
     public string _name, _text;
     public int _cost, _value;
+    
     public bool mouseInteractable {get;set;}
 
     [SerializeField] public TextMeshPro cardName, cardText, cardCost;
@@ -41,38 +42,41 @@ public class Card : MonoBehaviour
         _cost = _spellinfo.cost;
         _text = _spellinfo.text;
         cardtype = type;
-        if(type == CardType.handCard) SetMouseInteractable(true);
+        StartCoroutine(SetMouseInteractable(false));
     }
 
     public void OnMouseOver(){
-        if(cardtype == CardType.handCard){
+        if(mouseInteractable){
             GameManager.Instance.CardManager.ChangeCardSize(this, true);
         }
     }
 
     public void OnMouseExit(){
-        if(cardtype == CardType.handCard){
+        if(mouseInteractable){
             GameManager.Instance.CardManager.ChangeCardSize(this, false);
         }
     }
 
-    public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0f){
+    public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0f, bool controlInteractable = false){
         if (useDotween)
         {
             transform.DOMove(prs.position, dotweenTime);
             transform.DORotateQuaternion(prs.rotation, dotweenTime);
             transform.DOScale(prs.scale, dotweenTime);
+            if(cardtype == CardType.handCard && controlInteractable) StartCoroutine(SetMouseInteractable(true, dotweenTime));
         }
         else
         {
             transform.position = prs.position;
             transform.rotation = prs.rotation;
             transform.localScale = prs.scale;
+            if(cardtype == CardType.handCard && controlInteractable) StartCoroutine(SetMouseInteractable(true));
         }
     }
 
-    public void SetMouseInteractable(bool isInteractable){
-        mouseInteractable = isInteractable;
+    public IEnumerator SetMouseInteractable(bool isInteractable, float afterSeconds = 0){
+        yield return new WaitForSeconds(afterSeconds);
+        mouseInteractable = isInteractable;   
     }
 
     public void Update(){

@@ -19,7 +19,7 @@ public class ThunderDash : Spell
         List<Vector2> way4 = new List<Vector2>() {Vector2.left, Vector2.right, Vector2.up, Vector2.down};
         List<Vector2> candidate = new List<Vector2>();
         foreach(Vector2 v in way4){
-            if(Gridlib.InRange(stage, pp + v * 3)){
+            if(Gridlib.InRange(stage, pp + v * 3) && !stage.AssignedTile().Contains(pp + v * 3)){
                 candidate.Add(pp + v*3);
             }
         }

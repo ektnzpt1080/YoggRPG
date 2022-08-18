@@ -70,7 +70,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    //카드를 생성 시킴
+    //카드를 생성 시킴, 나중에 코루틴으로 바꿀 것
     public void MakeCard(SpellInfo s){
         if(cardHand.Count >= maxCardCount){
             Debug.Log("Hand is full, Can't make Card");
@@ -124,8 +124,7 @@ public class CardManager : MonoBehaviour
                 Vector3 targetPos = new Vector3(cardHandx[i], leftCardTransform.position.y, leftCardTransform.position.z);
                 cardHand[i].Ordering(i);
                 cardHand[i].originOrder = i;
-                cardHand[i].gameObject.transform.DOMove(targetPos, moveTime);
-                cardHand[i].gameObject.transform.DORotateQuaternion(rotation, moveTime);
+                cardHand[i].MoveTransform(new PRS(targetPos, rotation, cardObject.transform.localScale), true, moveTime, true);
                 cardHand[i].originPRS = new PRS(targetPos, rotation, cardObject.transform.localScale);
             }
         }
@@ -135,8 +134,7 @@ public class CardManager : MonoBehaviour
                 Vector3 targetPos = new Vector3(cardHandx[i], yPos(cardHandx[i]), leftCardTransform.position.z);
                 cardHand[i].Ordering(i);
                 cardHand[i].originOrder = i;
-                cardHand[i].gameObject.transform.DOMove(targetPos, moveTime);
-                cardHand[i].gameObject.transform.DORotateQuaternion(rotation, moveTime);
+                cardHand[i].MoveTransform(new PRS(targetPos, rotation, cardObject.transform.localScale), true, moveTime, true);
                 cardHand[i].originPRS = new PRS(targetPos, rotation, cardObject.transform.localScale);
             }
         }
@@ -266,7 +264,7 @@ public class CardManager : MonoBehaviour
     //0 - 사용됨, 1 - 턴이 끝나서 버림, 2 - 카드효과로 버려짐
     public void DiscardCard(Card card, int type){
         //card가 소멸 속성이면 사라지게 할 것, 시간 있으면 애니메이션도
-        card.SetMouseInteractable(false);
+        StartCoroutine(card.SetMouseInteractable(false));
         cardHand.Remove(card);
         cardGrave.Add(card.spellinfo);
         
