@@ -12,6 +12,10 @@ public class UIManager : MonoBehaviour
     List<CardUI> cards;
 
     [SerializeField] RewardCardCanvas rewardCardCanvas;
+    
+    [SerializeField] Canvas HPUICanvas;
+    [SerializeField] HPBarUI hpUI;
+
 
     // SpellInfo List를 받고 Card들을 생성시킴 
     public void TurnOnCardList(List<SpellInfo> sList){
@@ -47,5 +51,9 @@ public class UIManager : MonoBehaviour
         rewardCardCanvas.RandomReward();
     }
 
+    public void HPBarInit(Enemy enemy){
+        HPBarUI hp = Instantiate(hpUI, HPUICanvas.transform);
+        hp.Init(enemy, HPUICanvas);
+    }
 
 }

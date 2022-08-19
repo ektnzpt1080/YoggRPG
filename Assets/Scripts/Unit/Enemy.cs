@@ -24,6 +24,8 @@ public abstract class Enemy : MonoBehaviour
     public void Init(EnemyInfo ei){
         health = ei.health;
         strength = ei.strength;
+        GameManager.Instance.UIManager.HPBarInit(this);
+        
     }
     
     public abstract void Move(Stage stage);

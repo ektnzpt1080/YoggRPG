@@ -48,7 +48,7 @@ TagManager:
   - name: Unit
     uniqueID: 312653365
     locked: 0
-  - name: User
+  - name: Card
     uniqueID: 743807459
     locked: 0
   - name: Text
