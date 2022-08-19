@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    public EnemyInfo enemyinfo;
+    public int maxHealth;
     public int health;
     public int strength;    
     public Vector2 position;
@@ -22,12 +24,19 @@ public abstract class Enemy : MonoBehaviour
     }
 
     public void Init(EnemyInfo ei){
+        enemyinfo = ei;
+        maxHealth = ei.health;
         health = ei.health;
         strength = ei.strength;
         GameManager.Instance.UIManager.HPBarInit(this);
+    }
+
+    private void OnMouseDown() {
         
     }
+
     
+
     public abstract void Move(Stage stage);
     public abstract void Attack(Stage stage);
 

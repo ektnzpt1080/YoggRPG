@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyInfo
 {
-    public string Name;
+    public string name;
     public Sprite sprite;
     public int health;
     public int strength;

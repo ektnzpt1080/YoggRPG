@@ -10,8 +10,9 @@ public class CardManager : MonoBehaviour
     public List<SpellInfo> cardYogg {get;set;} // 요그사론의 카드
     public List<Card> cardHand {get;set;} // 핸드의 카드, 이쪽은 진짜 카드로 관리됨
     [SerializeField] Card cardObject;
+    [SerializeField] EnemyCard enemyCard;
     [SerializeField] Transform rightCardTransform, leftCardTransform, deckTransform, graveTransform;
-    [SerializeField] Transform yoggInitTransform, showCardTransform;
+    [SerializeField] Transform yoggInitTransform, showCardTransform, enemyCardTransform;
     [SerializeField] public SpellData spelldata;
 
     int maxCardCount = 10; // 최대 10장을 들 수 있음
@@ -225,6 +226,13 @@ public class CardManager : MonoBehaviour
             }
             othercard.MoveTransform(new PRS(othercard.originPRS.position + Vector3.left * left + down, othercard.originPRS.rotation, othercard.originPRS.scale), true, 0.4f);
         }
+    }
+
+    //EnemyInfo를 보여줌
+    public EnemyCard EnemyCardInstantiate(Enemy e){
+        EnemyCard ec = Instantiate(enemyCard, enemyCardTransform.position, Quaternion.identity);
+        ec.InitEnemyCard(e);
+        return ec;
     }
 
     //카드를 플레이함

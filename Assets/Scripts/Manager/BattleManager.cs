@@ -42,6 +42,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI manatext, hptext, shieldtext;
     [SerializeField] TextMeshProUGUI gameovertext;
     
+    EnemyCard ec;    
+
 
     //스테이지 배틀 시작
     public void StartBattle(Stage s){
@@ -77,10 +79,12 @@ public class BattleManager : MonoBehaviour
                     }
                     SwitchState(State.selectBehaviourState);
                     break;
-                //카드를 고르거나 move 버튼을 누를 수 있음, 혹은 턴 엔드
+                //카드를 고르거나 move 버튼을 누를 수 있음, 혹은 턴 엔드, 혹은 에너미의 상태를 볼 수 있음
                 case State.selectBehaviourState :
+                    DestroyEnemyInfo();
                     GameManager.Instance.CardManager.PickCard();
                     ClickButton();
+                    ShowEnemyInfo();
                     break;
                 //move 버튼을 눌렀을 시, 움직일 범위를 선택 할 수 있음
                 case State.pickMoveState :
@@ -248,6 +252,28 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    //enemy의 info를 보여줌
+    public void ShowEnemyInfo(){
+        if (Input.GetMouseButtonDown(0)){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray,Mathf.Infinity);
+            if(hit.collider != null && hit.collider.TryGetComponent<Enemy>(out Enemy enemy)) {
+                Debug.Log(enemy.gameObject.name);
+                ec = GameManager.Instance.CardManager.EnemyCardInstantiate(enemy);
+            }
+        }
+    }
+
+    //enemy의 info를 삭제시킴
+    public void DestroyEnemyInfo(){
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)){
+            if(ec != null){
+                GameObject.Destroy(ec.gameObject);
+                ec = null;
+            }
+        }
+    }
+
     //누른 위치로 player를 이동시킴
     public void MoveButton(){
         if (Input.GetMouseButtonDown(0)){
@@ -332,6 +358,10 @@ public class BattleManager : MonoBehaviour
     }
 
     void SwitchState(State s){
+        if(ec != null){
+            GameObject.Destroy(ec.gameObject);
+            ec = null;
+        }
         state = s;
         switched = true;    
     }

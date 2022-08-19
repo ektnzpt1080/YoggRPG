@@ -1183,6 +1183,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432803919}
   m_CullTransparentMesh: 1
+--- !u!1 &464508454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 464508455}
+  m_Layer: 0
+  m_Name: EnemyCardShowTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &464508455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464508454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.12, y: 5.72, z: 0}
+  m_LocalScale: {x: 2.6981552, y: 2.3874614, z: 2.34663}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1541497302}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &464952564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3759,6 +3790,7 @@ Transform:
   - {fileID: 1459494449}
   - {fileID: 2133437923}
   - {fileID: 612666611}
+  - {fileID: 464508455}
   m_Father: {fileID: 1271101135}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3775,12 +3807,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardObject: {fileID: 2082658225118242086, guid: 18804635f5025ad499d6fff1accec315, type: 3}
+  enemyCard: {fileID: 2906259272555920021, guid: c5319be88bbfe8e418c9b38c5f9796ba, type: 3}
   rightCardTransform: {fileID: 808182644}
   leftCardTransform: {fileID: 752762259}
   deckTransform: {fileID: 29250253}
   graveTransform: {fileID: 1459494449}
   yoggInitTransform: {fileID: 2133437923}
   showCardTransform: {fileID: 612666611}
+  enemyCardTransform: {fileID: 464508455}
   spelldata: {fileID: 11400000, guid: 60712c2d12fcb0d4490902ff44caa70f, type: 2}
   selected: 0
 --- !u!1 &1597837133

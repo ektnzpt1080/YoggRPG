@@ -13,7 +13,6 @@ public class HPBarUI : MonoBehaviour
     RectTransform _rectParent;
 
     [SerializeField] Slider slider;
-    [SerializeField] TextMeshProUGUI text;
     [SerializeField] float up;
 
 
@@ -32,7 +31,6 @@ public class HPBarUI : MonoBehaviour
             transform.localPosition = localPos;
 
             slider.value = (float) enemy.health / maxhp;
-            text.text = enemy.health.ToString();
         }
         else GameObject.Destroy(this.gameObject);
         

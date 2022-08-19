@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   Enemies:
-  - Name: Slime
+  - name: fdafas
     sprite: {fileID: 0}
     health: 30
     strength: 9
-  - Name: bat
+  - name: fdaf
     sprite: {fileID: 0}
     health: 30
     strength: 12
-  - Name: golem
+  - name: 
     sprite: {fileID: 0}
     health: 30
     strength: 12
